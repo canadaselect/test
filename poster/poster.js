@@ -18,7 +18,7 @@ const BRAND = {
 };
 
 // 若后续你加 Cloudflare Worker 代理，这里可以改成 true，走 /api/fetch?url=...
-const USE_WORKER_PROXY = false;
+const USE_WORKER_PROXY = true;
 const WORKER_FETCH_ENDPOINT = "/api/fetch?url="; // 你未来可以做成 Worker
 
 // ---------- DOM ----------
@@ -350,3 +350,24 @@ async function renderPoster(data) {
 
     // subtle overlay
     ctx.save()
+
+    export default {
+  async fetch(req) {
+    const url = new URL(req.url);
+    const target = url.searchParams.get("url");
+    if (!target) return new Response("Missing url", { status: 400 });
+
+    const res = await fetch(target, {
+      headers: {
+        "User-Agent": "PosterBot/1.0"
+      }
+    });
+
+    return new Response(await res.text(), {
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+        "Access-Control-Allow-Origin": "*"
+      }
+    });
+  }
+}
