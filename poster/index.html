@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>海报生成器（1080×1440）</title>
+
+  <!-- 字体：你也可以换成你站点现有字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card: #121a2a;
+      --text: #e9eefc;
+      --muted: #a8b3cf;
+      --line: rgba(255,255,255,.12);
+      --accent: #4aa3ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans SC", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #0b0f19, #0a1020);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+    .sub {
+      margin: 0 0 18px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: rgba(18,26,42,.9);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin: 10px 0 6px;
+    }
+    input[type="url"], input[type="text"], textarea {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px 12px;
+      outline: none;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .btn {
+      appearance: none;
+      border: 0;
+      background: var(--accent);
+      color: #061019;
+      font-weight: 800;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      white-space: pre-wrap;
+    }
+    .previewWrap {
+      display: grid;
+      gap: 12px;
+    }
+    .canvasBox {
+      background: rgba(255,255,255,.04);
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      overflow: hidden;
+    }
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(255,255,255,.04);
+    }
+    .k {
+      color: #fff;
+      font-weight: 700;
+    }
+    .footerNote {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1 class="title">海报生成器（1080×1440 / 3:4）</h1>
+    <p class="sub">
+      输入产品页 URL（例如 <span class="mono">https://canadiannaturals.ca/皇家礼豹.html</span>），自动抓取产品信息并生成海报 PNG。<br/>
+      <span class="badge">推荐：在产品页 head 加 <span class="k">#product-poster-data</span> JSON，抓取会更稳定。</span>
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <label>产品页 URL</label>
+        <input id="urlInput" type="url" placeholder="https://canadiannaturals.ca/皇家礼豹.html" />
+
+        <div class="row" style="margin-top:12px;">
+          <button id="btnGenerate" class="btn">生成海报</button>
+          <button id="btnDownload" class="btn secondary" disabled>下载 PNG</button>
+          <button id="btnClear" class="btn secondary">清空</button>
+        </div>
+
+        <div class="hint">
+          ⚠️ 如果产品页图片不是同域（或没有允许跨域），Canvas 可能无法导出 PNG。最稳方案：把图片放在同域（canadiannaturals.ca）或后续加 Worker 代理。<br/>
+          二维码库默认走 CDN；你也可以下载成 <span class="mono">/poster/qrcode.min.js</span> 本地引用。
+        </div>
+
+        <div class="status" id="status"></div>
+
+        <hr style="border:0;border-top:1px solid var(--line);margin:16px 0;">
+
+        <label>（可选）手动覆盖：标题</label>
+        <input id="titleOverride" type="text" placeholder="留空=自动从页面读取" />
+
+        <label>（可选）手动覆盖：卖点（每行一条）</label>
+        <textarea id="highlightsOverride" placeholder="留空=自动读取/或从 JSON 数据读取"></textarea>
+
+        <label>（可选）手动覆盖：用法（每行一条）</label>
+        <textarea id="usageOverride" placeholder="留空=自动读取/或从 JSON 数据读取"></textarea>
+
+        <div class="footerNote">
+          建议你在每个产品页 head 加上：<span class="mono">&lt;script type="application/json" id="product-poster-data"&gt;...&lt;/script&gt;</span><br/>
+          这样海报生成不会受页面结构变化影响。
+        </div>
+      </div>
+
+      <div class="card previewWrap">
+        <div class="small">预览（海报为 1080×1440，下面是自适应缩放显示）</div>
+        <div class="canvasBox">
+          <canvas id="posterCanvas" width="1080" height="1440"></canvas>
+        </div>
+        <div class="small" id="metaInfo"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 二维码库（默认 CDN）。如果你要国内更快：把库下载到 /poster/qrcode.min.js 然后改成本地引用 -->
+  <!-- 方案1：qrcodejs -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="./poster.js"></script>
+</body>
+</html>
