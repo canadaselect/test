@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>智能海报生成器 - Canadian Naturals</title>
+  <title>加国甄选 - 产品海报生成器</title>
 
   <!-- 字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -19,8 +19,9 @@
       --text-secondary: #a5b4d4;
       --text-muted: #6b7a9a;
       --border: rgba(165, 180, 212, 0.12);
-      --accent: #3b82f6;
-      --accent-hover: #2563eb;
+      --accent: #c8102e;
+      --accent-hover: #a00d26;
+      --gold: #d4af37;
       --success: #10b981;
       --warning: #f59e0b;
       --error: #ef4444;
@@ -48,7 +49,7 @@
       right: -50%;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(200, 16, 46, 0.08) 0%, transparent 70%);
       pointer-events: none;
       animation: pulse 8s ease-in-out infinite;
     }
@@ -78,16 +79,17 @@
       to { opacity: 1; transform: translateY(0); }
     }
     
-    .header h1 {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(32px, 5vw, 56px);
-      font-weight: 900;
-      background: linear-gradient(135deg, #ffffff 0%, #a5b4d4 100%);
+    .logo-text {
+      font-family: "Ma Shan Zheng", cursive;
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 400;
+      background: linear-gradient(135deg, var(--gold) 0%, #f4d03f 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 16px;
-      letter-spacing: -0.02em;
+      letter-spacing: 0.05em;
+      text-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
     }
     
     .header p {
@@ -148,60 +150,8 @@
       content: '';
       width: 4px;
       height: 24px;
-      background: linear-gradient(180deg, var(--accent), var(--success));
+      background: linear-gradient(180deg, var(--accent), var(--gold));
       border-radius: 2px;
-    }
-    
-    /* 搜索区域 */
-    .search-section {
-      margin-bottom: 32px;
-    }
-    
-    .tab-buttons {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding: 4px;
-      background: rgba(10, 14, 26, 0.5);
-      border-radius: 12px;
-    }
-    
-    .tab-btn {
-      flex: 1;
-      padding: 12px 20px;
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .tab-btn.active {
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-    
-    .tab-btn:hover:not(.active) {
-      background: rgba(165, 180, 212, 0.1);
-      color: var(--text-primary);
-    }
-    
-    .tab-content {
-      display: none;
-    }
-    
-    .tab-content.active {
-      display: block;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
     }
     
     /* 表单元素 */
@@ -236,11 +186,11 @@
     textarea:focus {
       border-color: var(--accent);
       background: rgba(10, 14, 26, 0.8);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 4px rgba(200, 16, 46, 0.1);
     }
     
     textarea {
-      min-height: 100px;
+      min-height: 80px;
       resize: vertical;
       font-family: inherit;
     }
@@ -292,14 +242,14 @@
     }
     
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #2563eb);
+      background: linear-gradient(135deg, var(--accent), var(--accent-hover));
       color: white;
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 16px rgba(200, 16, 46, 0.3);
     }
     
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 6px 24px rgba(200, 16, 46, 0.4);
     }
     
     .btn-secondary {
@@ -317,60 +267,6 @@
       opacity: 0.5;
       cursor: not-allowed;
       transform: none !important;
-    }
-    
-    /* 搜索结果 */
-    .search-results {
-      margin-top: 20px;
-      max-height: 300px;
-      overflow-y: auto;
-      border-radius: 12px;
-      background: rgba(10, 14, 26, 0.6);
-      padding: 12px;
-    }
-    
-    .search-results::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .search-results::-webkit-scrollbar-track {
-      background: rgba(165, 180, 212, 0.05);
-      border-radius: 4px;
-    }
-    
-    .search-results::-webkit-scrollbar-thumb {
-      background: rgba(165, 180, 212, 0.2);
-      border-radius: 4px;
-    }
-    
-    .search-result-item {
-      padding: 16px;
-      margin-bottom: 8px;
-      background: rgba(20, 27, 46, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .search-result-item:hover {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: var(--accent);
-      transform: translateX(4px);
-    }
-    
-    .search-result-item h4 {
-      font-size: 15px;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-    
-    .search-result-item p {
-      font-size: 13px;
-      color: var(--text-muted);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     
     /* 状态消息 */
@@ -490,12 +386,12 @@
       align-items: center;
       gap: 6px;
       padding: 6px 12px;
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.3);
+      background: rgba(200, 16, 46, 0.15);
+      border: 1px solid rgba(200, 16, 46, 0.3);
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
-      color: #93c5fd;
+      color: #fca5a5;
     }
     
     /* 响应式 */
@@ -505,14 +401,40 @@
       .btn-group { flex-direction: column; }
       .btn { width: 100%; justify-content: center; }
     }
+
+    /* 产品输入提示 */
+    .product-examples {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .product-examples strong {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .product-examples code {
+      display: inline-block;
+      padding: 2px 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      color: var(--text-secondary);
+      margin: 2px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>智能海报生成器</h1>
-      <p>搜索产品或输入产品页面链接，自动生成专业的 3:4 宣传海报</p>
+      <h1 class="logo-text">加国甄选</h1>
+      <p>产品海报自动生成器 • 3:4 比例 • 一键下载</p>
     </div>
 
     <div class="main-grid">
@@ -520,32 +442,14 @@
       <div class="card">
         <h2 class="card-title">生成设置</h2>
         
-        <div class="search-section">
-          <div class="tab-buttons">
-            <button class="tab-btn active" data-tab="search">🔍 搜索产品</button>
-            <button class="tab-btn" data-tab="url">🔗 直接输入URL</button>
-          </div>
-          
-          <!-- 搜索标签 -->
-          <div class="tab-content active" id="searchTab">
-            <div class="form-group">
-              <label>搜索产品名称</label>
-              <input type="text" id="searchInput" placeholder="例如：皇家礼豹" />
-            </div>
-            <button id="btnSearch" class="btn btn-primary">
-              <span>🔍</span>
-              <span>搜索</span>
-            </button>
-            
-            <div id="searchResults" class="search-results" style="display: none;"></div>
-          </div>
-          
-          <!-- URL标签 -->
-          <div class="tab-content" id="urlTab">
-            <div class="form-group">
-              <label>产品页面 URL</label>
-              <input type="url" id="urlInput" placeholder="https://canadiannaturals.ca/皇家礼豹.html" />
-            </div>
+        <div class="form-group">
+          <label>🔗 产品页面 URL</label>
+          <input type="url" id="urlInput" placeholder="例如：https://canadiannaturals.ca/皇家礼豹" />
+          <div class="product-examples">
+            <strong>💡 支持的URL格式：</strong>
+            <code>canadiannaturals.ca/皇家礼豹</code>
+            <code>canadiannaturals.ca/海豹油</code>
+            <code>或完整URL</code>
           </div>
         </div>
 
@@ -568,29 +472,24 @@
 
         <div class="hint">
           <strong>💡 使用提示</strong>
-          • 支持搜索产品名称或直接输入URL<br>
+          • 支持加国甄选网站所有产品页面<br>
           • 海报尺寸为 1080×1440 (3:4 比例)<br>
-          • 产品图片、信息和二维码自动布局<br>
-          • 如遇跨域问题，请确保图片资源可访问
+          • 自动提取产品图片、标题、功效、用法<br>
+          • 适合微信、小红书等社交平台分享
         </div>
 
         <!-- 可选覆盖 -->
         <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
-          <h3 style="font-size: 16px; margin-bottom: 20px; color: var(--text-secondary);">🎨 可选：自定义内容</h3>
+          <h3 style="font-size: 16px; margin-bottom: 20px; color: var(--text-secondary);">🎨 可选：手动编辑内容</h3>
           
           <div class="form-group">
-            <label>标题（留空则自动提取）</label>
-            <input type="text" id="titleOverride" placeholder="自定义产品标题" />
+            <label>产品标题（留空则自动提取）</label>
+            <input type="text" id="titleOverride" placeholder="例如：皇家礼豹（鼎级配制）" />
           </div>
           
           <div class="form-group">
-            <label>产品卖点（每行一条）</label>
-            <textarea id="highlightsOverride" placeholder="• 卖点1&#10;• 卖点2&#10;• 卖点3"></textarea>
-          </div>
-          
-          <div class="form-group">
-            <label>使用方法（每行一条）</label>
-            <textarea id="usageOverride" placeholder="1. 使用步骤1&#10;2. 使用步骤2"></textarea>
+            <label>产品副标题</label>
+            <input type="text" id="subtitleOverride" placeholder="例如：Royal Seal Gift – Premium Formula" />
           </div>
         </div>
       </div>
@@ -601,7 +500,7 @@
           <h2 class="card-title">预览</h2>
           <div class="badge">
             <span>📐</span>
-            <span>1080 × 1440 像素</span>
+            <span>1080 × 1440 像素 (3:4)</span>
           </div>
           
           <div class="canvas-container">
