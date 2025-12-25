@@ -182,14 +182,6 @@
       reader.readAsDataURL(file);
     });
 
-    // 下载
-    $("downloadPng").addEventListener("click", () => {
-      qr.download({ name: "qr", extension: "png" });
-    });
-    $("downloadSvg").addEventListener("click", () => {
-      qr.download({ name: "qr", extension: "svg" });
-    });
-
     updateQR();
 
 function getProductNameFromUrl(url) {
