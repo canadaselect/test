@@ -1,6 +1,6 @@
 /* 
- * 加国甄选 - 产品海报生成器
- * 针对 canadiannaturals.ca 网站优化
+ * 加国甄选 - 产品海报生成器 (增强版)
+ * 支持更灵活的数据提取
  */
 
 // ========== 配置 ==========
@@ -40,7 +40,6 @@ const CONFIG = {
   // 网站配置
   site: {
     baseUrl: "https://canadiannaturals.ca",
-    // 如果部署到 Cloudflare Pages,代理会自动启用
     proxyEndpoint: "/api/fetch?url="
   }
 };
@@ -113,7 +112,6 @@ const Utils = {
 // ========== 网络请求 ==========
 const Network = {
   async fetchHtml(url) {
-    // 在 Cloudflare Pages 环境下使用代理
     const targetUrl = url.startsWith('http') 
       ? `${CONFIG.site.proxyEndpoint}${encodeURIComponent(url)}`
       : url;
@@ -136,126 +134,44 @@ const Network = {
   }
 };
 
-// ========== 数据解析 ==========
+// ========== 增强数据解析器 ==========
 const Parser = {
   parseProductData(html, pageUrl) {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     
-    // 提取产品标题
-    let title = '';
-    const h1 = doc.querySelector('h1');
-    if (h1) {
-      title = h1.textContent.trim();
-    }
+    console.log('开始解析产品数据...');
     
-    // 提取副标题（英文名称）
-    let subtitle = '';
-    const h1Parent = h1?.parentElement;
-    if (h1Parent) {
-      const lines = h1Parent.textContent.split('\n').map(l => l.trim()).filter(l => l);
-      if (lines.length > 1) {
-        subtitle = lines.find(l => /[A-Za-z]/.test(l) && l !== title) || '';
-      }
-    }
+    // 提取产品标题 - 多种方式尝试
+    let title = this.extractTitle(doc);
+    console.log('提取的标题:', title);
+    
+    // 提取副标题
+    let subtitle = this.extractSubtitle(doc, title);
+    console.log('提取的副标题:', subtitle);
     
     // 提取价格
-    let price = '';
-    const priceEl = doc.querySelector('.price, [class*="price"]');
-    if (priceEl) {
-      const priceText = priceEl.textContent.trim();
-      const match = priceText.match(/\$[\d,]+\.?\d*/);
-      if (match) price = match[0];
-    }
+    let price = this.extractPrice(doc);
+    console.log('提取的价格:', price);
     
     // 提取规格
-    let specs = '';
-    const specEl = doc.querySelector('.woocommerce-product-details__short-description, .product-specs');
-    if (specEl) {
-      const specText = specEl.textContent;
-      const match = specText.match(/规格[：:]\s*(.+?)(?:\n|$)/);
-      if (match) specs = match[1].trim();
-    }
+    let specs = this.extractSpecs(doc);
+    console.log('提取的规格:', specs);
     
     // 提取主图
-    let image = '';
-    const imgEl = doc.querySelector('.woocommerce-product-gallery__image img, .product-image img, img[class*="product"]');
-    if (imgEl) {
-      image = imgEl.src || imgEl.dataset.src || imgEl.getAttribute('data-lazy-src') || '';
-      image = Utils.normalizeUrl(image);
-    }
+    let image = this.extractImage(doc, pageUrl);
+    console.log('提取的图片:', image);
     
-    // 提取产品描述
-    let description = '';
-    const descEl = doc.querySelector('.woocommerce-product-details__short-description p');
-    if (descEl) {
-      description = descEl.textContent.trim();
-    }
+    // 提取描述
+    let description = this.extractDescription(doc);
+    console.log('提取的描述:', description?.substring(0, 50) + '...');
     
-    // 提取功效列表
-    const benefits = [];
-    const benefitSection = Array.from(doc.querySelectorAll('h2, h3, h4')).find(h => 
-      h.textContent.includes('主要成分') || h.textContent.includes('功效')
-    );
+    // 提取功效
+    const benefits = this.extractBenefits(doc);
+    console.log('提取的功效数量:', benefits.length);
     
-    if (benefitSection) {
-      let currentEl = benefitSection.nextElementSibling;
-      let count = 0;
-      
-      while (currentEl && count < 10) {
-        if (currentEl.tagName === 'UL' || currentEl.tagName === 'OL') {
-          const items = currentEl.querySelectorAll('li');
-          items.forEach(item => {
-            const text = item.textContent.trim();
-            if (text && text.length > 5) {
-              // 提取标题和内容
-              const parts = text.split(/\n/);
-              if (parts.length > 0) {
-                const firstLine = parts[0].trim();
-                // 去掉emoji和多余符号
-                const cleaned = firstLine.replace(/^[🔴🟢🟡⭐️✨💊🌿]+\s*/, '').trim();
-                if (cleaned) benefits.push(cleaned);
-              }
-            }
-          });
-          break;
-        } else if (currentEl.tagName.match(/^H[2-4]$/)) {
-          break;
-        }
-        currentEl = currentEl.nextElementSibling;
-        count++;
-      }
-    }
-    
-    // 提取用法说明
-    const usage = [];
-    const usageSection = Array.from(doc.querySelectorAll('h2, h3, h4')).find(h => 
-      h.textContent.includes('建议用量') || h.textContent.includes('用法') || h.textContent.includes('服用方法')
-    );
-    
-    if (usageSection) {
-      let currentEl = usageSection.nextElementSibling;
-      let count = 0;
-      
-      while (currentEl && count < 5) {
-        if (currentEl.tagName === 'UL' || currentEl.tagName === 'OL') {
-          const items = currentEl.querySelectorAll('li');
-          items.forEach(item => {
-            const text = item.textContent.trim();
-            if (text) usage.push(text);
-          });
-          break;
-        } else if (currentEl.tagName === 'P') {
-          const text = currentEl.textContent.trim();
-          if (text.includes('每次') || text.includes('每天') || text.includes('每日')) {
-            usage.push(text);
-          }
-        } else if (currentEl.tagName.match(/^H[2-4]$/)) {
-          break;
-        }
-        currentEl = currentEl.nextElementSibling;
-        count++;
-      }
-    }
+    // 提取用法
+    const usage = this.extractUsage(doc);
+    console.log('提取的用法数量:', usage.length);
     
     return {
       name: title || '产品名称',
@@ -264,10 +180,295 @@ const Parser = {
       specs: specs || '',
       description: description || '',
       image: image || '',
-      benefits: benefits.slice(0, 5), // 最多5个功效
-      usage: usage.slice(0, 3), // 最多3条用法
+      benefits: benefits,
+      usage: usage,
       url: pageUrl
     };
+  },
+  
+  // 提取标题 - 多种选择器
+  extractTitle(doc) {
+    const selectors = [
+      'h1.product_title',
+      'h1.entry-title',
+      '.product-title',
+      'h1',
+      '.product-name h1',
+      '.product-name',
+      '[itemprop="name"]'
+    ];
+    
+    for (const selector of selectors) {
+      const el = doc.querySelector(selector);
+      if (el && el.textContent.trim()) {
+        return Utils.cleanText(el.textContent);
+      }
+    }
+    
+    // 从meta标签获取
+    const ogTitle = doc.querySelector('meta[property="og:title"]');
+    if (ogTitle) return Utils.cleanText(ogTitle.content);
+    
+    const titleTag = doc.querySelector('title');
+    if (titleTag) {
+      // 清理网站名称
+      let title = titleTag.textContent.split('|')[0].split('-')[0];
+      return Utils.cleanText(title);
+    }
+    
+    return '';
+  },
+  
+  // 提取副标题
+  extractSubtitle(doc, mainTitle) {
+    // 查找包含英文的元素
+    const selectors = [
+      '.product-subtitle',
+      '.product_title + p',
+      'h1 + p',
+      '.woocommerce-product-details__short-description p:first-child'
+    ];
+    
+    for (const selector of selectors) {
+      const el = doc.querySelector(selector);
+      if (el) {
+        const text = Utils.cleanText(el.textContent);
+        // 如果包含英文且不是主标题
+        if (/[A-Za-z]/.test(text) && text !== mainTitle && text.length < 100) {
+          return text;
+        }
+      }
+    }
+    
+    return '';
+  },
+  
+  // 提取价格
+  extractPrice(doc) {
+    const selectors = [
+      '.price .amount',
+      '.price ins .amount',
+      '.price',
+      '[itemprop="price"]',
+      '.product-price',
+      '.woocommerce-Price-amount'
+    ];
+    
+    for (const selector of selectors) {
+      const el = doc.querySelector(selector);
+      if (el) {
+        const text = el.textContent.trim();
+        // 匹配价格格式
+        const match = text.match(/\$[\d,]+\.?\d*/);
+        if (match) return match[0];
+      }
+    }
+    
+    return '';
+  },
+  
+  // 提取规格
+  extractSpecs(doc) {
+    // 查找包含"规格"、"容量"、"粒"等关键词的文本
+    const bodyText = doc.body.textContent;
+    
+    // 匹配模式：数字 + 粒/瓶/盒/粒/颗 等
+    const patterns = [
+      /(\d+\s*粒\s*[\/|]\s*瓶)/,
+      /(\d+\s*粒)/,
+      /(\d+\s*颗)/,
+      /(\d+\s*mg)/,
+      /(\d+\s*g)/,
+      /规格[：:]\s*([^\n]+)/
+    ];
+    
+    for (const pattern of patterns) {
+      const match = bodyText.match(pattern);
+      if (match) return Utils.cleanText(match[1] || match[0]);
+    }
+    
+    return '';
+  },
+  
+  // 提取图片
+  extractImage(doc, pageUrl) {
+    const selectors = [
+      '.woocommerce-product-gallery__image img',
+      '.product-image img',
+      '.wp-post-image',
+      'img[class*="product"]',
+      '.entry-content img:first-of-type',
+      'meta[property="og:image"]'
+    ];
+    
+    for (const selector of selectors) {
+      const el = doc.querySelector(selector);
+      if (el) {
+        let src = '';
+        if (el.tagName === 'META') {
+          src = el.content;
+        } else {
+          src = el.src || el.dataset.src || el.dataset.lazySrc || el.getAttribute('data-lazy-src') || '';
+        }
+        
+        if (src) {
+          // 过滤掉太小的图片（可能是图标）
+          if (!src.includes('icon') && !src.includes('logo') && !src.includes('placeholder')) {
+            return Utils.normalizeUrl(src);
+          }
+        }
+      }
+    }
+    
+    // 尝试找到所有图片中最大的
+    const allImages = Array.from(doc.querySelectorAll('img'));
+    const productImages = allImages.filter(img => {
+      const src = img.src || '';
+      const alt = img.alt || '';
+      return !src.includes('logo') && 
+             !src.includes('icon') && 
+             !alt.includes('logo') &&
+             img.width > 100;
+    });
+    
+    if (productImages.length > 0) {
+      return Utils.normalizeUrl(productImages[0].src);
+    }
+    
+    return '';
+  },
+  
+  // 提取描述
+  extractDescription(doc) {
+    const selectors = [
+      '.woocommerce-product-details__short-description',
+      '.product-description',
+      '.entry-summary > p:first-of-type',
+      'meta[name="description"]'
+    ];
+    
+    for (const selector of selectors) {
+      const el = doc.querySelector(selector);
+      if (el) {
+        const text = el.tagName === 'META' ? el.content : el.textContent;
+        const cleaned = Utils.cleanText(text);
+        if (cleaned && cleaned.length > 20) {
+          return cleaned;
+        }
+      }
+    }
+    
+    return '';
+  },
+  
+  // 提取功效列表
+  extractBenefits(doc) {
+    const benefits = [];
+    
+    // 查找包含"功效"、"特点"、"成分"的标题
+    const headers = Array.from(doc.querySelectorAll('h2, h3, h4, strong'));
+    const benefitHeader = headers.find(h => {
+      const text = h.textContent;
+      return text.includes('功效') || 
+             text.includes('特点') || 
+             text.includes('成分') ||
+             text.includes('优势') ||
+             text.includes('好处');
+    });
+    
+    if (benefitHeader) {
+      // 查找后续的列表
+      let current = benefitHeader.nextElementSibling;
+      let count = 0;
+      
+      while (current && count < 10) {
+        if (current.tagName === 'UL' || current.tagName === 'OL') {
+          const items = current.querySelectorAll('li');
+          items.forEach(item => {
+            const text = this.cleanBenefitText(item.textContent);
+            if (text && text.length > 3) {
+              benefits.push(text);
+            }
+          });
+          break;
+        } else if (current.tagName.match(/^H[2-4]$/)) {
+          break;
+        }
+        current = current.nextElementSibling;
+        count++;
+      }
+    }
+    
+    // 如果没找到，尝试查找所有带圆点或数字的列表
+    if (benefits.length === 0) {
+      const lists = doc.querySelectorAll('ul li, ol li');
+      lists.forEach(item => {
+        const text = this.cleanBenefitText(item.textContent);
+        if (text && text.length > 5 && text.length < 100) {
+          benefits.push(text);
+        }
+      });
+    }
+    
+    return benefits.slice(0, 5);
+  },
+  
+  // 清理功效文本
+  cleanBenefitText(text) {
+    // 去除emoji和特殊符号
+    let cleaned = text.replace(/^[🔴🟢🟡⭐️✨💊🌿\s•·\-\d\.]+/, '').trim();
+    // 只取第一行
+    cleaned = cleaned.split('\n')[0].trim();
+    // 限制长度
+    if (cleaned.length > 80) {
+      cleaned = cleaned.substring(0, 80) + '...';
+    }
+    return cleaned;
+  },
+  
+  // 提取用法说明
+  extractUsage(doc) {
+    const usage = [];
+    
+    // 查找包含"用法"、"用量"、"服用"的标题
+    const headers = Array.from(doc.querySelectorAll('h2, h3, h4, strong'));
+    const usageHeader = headers.find(h => {
+      const text = h.textContent;
+      return text.includes('用法') || 
+             text.includes('用量') || 
+             text.includes('服用') ||
+             text.includes('使用方法') ||
+             text.includes('建议');
+    });
+    
+    if (usageHeader) {
+      let current = usageHeader.nextElementSibling;
+      let count = 0;
+      
+      while (current && count < 5) {
+        if (current.tagName === 'UL' || current.tagName === 'OL') {
+          const items = current.querySelectorAll('li');
+          items.forEach(item => {
+            const text = Utils.cleanText(item.textContent);
+            if (text && text.length > 5) {
+              usage.push(text);
+            }
+          });
+          break;
+        } else if (current.tagName === 'P') {
+          const text = Utils.cleanText(current.textContent);
+          if (text && (text.includes('每') || text.includes('次') || text.includes('天'))) {
+            usage.push(text);
+          }
+        } else if (current.tagName.match(/^H[2-4]$/)) {
+          break;
+        }
+        current = current.nextElementSibling;
+        count++;
+      }
+    }
+    
+    return usage.slice(0, 3);
   }
 };
 
@@ -279,19 +480,15 @@ const PosterRenderer = {
     const h = CONFIG.canvasHeight;
     const p = CONFIG.layout.padding;
     
-    // 等待字体加载
     await Utils.waitForFonts();
     
-    // 清空画布
     ctx.fillStyle = CONFIG.colors.background;
     ctx.fillRect(0, 0, w, h);
     
     let currentY = p;
     
-    // 1. 绘制LOGO区域
     currentY = this.drawHeader(ctx, currentY);
     
-    // 2. 绘制产品图片
     if (data.image) {
       try {
         const img = await Utils.loadImage(data.image);
@@ -304,25 +501,20 @@ const PosterRenderer = {
       currentY += 40;
     }
     
-    // 3. 绘制产品标题
     currentY = this.drawTitle(ctx, data, currentY);
     
-    // 4. 绘制产品描述
     if (data.description) {
       currentY = this.drawDescription(ctx, data.description, currentY);
     }
     
-    // 5. 绘制功效列表
     if (data.benefits.length > 0) {
       currentY = this.drawBenefits(ctx, data.benefits, currentY);
     }
     
-    // 6. 绘制用法说明
     if (data.usage.length > 0) {
       currentY = this.drawUsage(ctx, data.usage, currentY);
     }
     
-    // 7. 绘制二维码和底部信息
     this.drawFooter(ctx, data.url);
     
     DOM.canvasInfo.textContent = `✅ 海报生成成功 - ${data.name}`;
@@ -332,7 +524,6 @@ const PosterRenderer = {
     const w = CONFIG.canvasWidth;
     const p = CONFIG.layout.padding;
     
-    // 绘制品牌名称
     ctx.save();
     ctx.font = 'bold 56px "Ma Shan Zheng", "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.gold;
@@ -340,7 +531,6 @@ const PosterRenderer = {
     ctx.fillText(CONFIG.brand.name, w / 2, y + 45);
     ctx.restore();
     
-    // 绘制分隔线
     ctx.save();
     ctx.strokeStyle = CONFIG.colors.border;
     ctx.lineWidth = 2;
@@ -359,14 +549,12 @@ const PosterRenderer = {
     const imgHeight = CONFIG.layout.productImageHeight;
     const imgWidth = w - p * 2;
     
-    // 绘制图片背景
     ctx.save();
     ctx.fillStyle = CONFIG.colors.lightBg;
     this.roundRect(ctx, p, y, imgWidth, imgHeight, 16);
     ctx.fill();
     ctx.restore();
     
-    // 绘制图片（保持宽高比，居中）
     ctx.save();
     ctx.beginPath();
     this.roundRect(ctx, p, y, imgWidth, imgHeight, 16);
@@ -383,7 +571,6 @@ const PosterRenderer = {
     const p = CONFIG.layout.padding;
     const maxWidth = w - p * 2;
     
-    // 绘制中文标题
     ctx.save();
     ctx.font = 'bold 46px "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.primary;
@@ -398,7 +585,6 @@ const PosterRenderer = {
     
     let currentY = y + titleLines.length * 56 + 20;
     
-    // 绘制英文副标题
     if (data.subtitle) {
       ctx.save();
       ctx.font = '24px "Noto Sans SC"';
@@ -409,7 +595,6 @@ const PosterRenderer = {
       currentY += 40;
     }
     
-    // 绘制价格和规格
     if (data.price || data.specs) {
       ctx.save();
       ctx.font = 'bold 32px "Noto Sans SC"';
@@ -452,7 +637,6 @@ const PosterRenderer = {
     const p = CONFIG.layout.padding;
     const maxWidth = w - p * 2 - 80;
     
-    // 绘制标题
     ctx.save();
     ctx.font = 'bold 36px "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.primary;
@@ -462,19 +646,16 @@ const PosterRenderer = {
     
     let currentY = y + 50;
     
-    // 绘制功效列表
     benefits.forEach((benefit, index) => {
-      if (currentY > CONFIG.canvasHeight - 300) return; // 防止溢出
+      if (currentY > CONFIG.canvasHeight - 300) return;
       
       ctx.save();
       
-      // 绘制圆点
       ctx.fillStyle = CONFIG.colors.accent;
       ctx.beginPath();
       ctx.arc(p + 20, currentY - 6, 6, 0, Math.PI * 2);
       ctx.fill();
       
-      // 绘制文字
       ctx.font = '26px "Noto Sans SC"';
       ctx.fillStyle = CONFIG.colors.primary;
       ctx.textAlign = 'left';
@@ -497,7 +678,6 @@ const PosterRenderer = {
     const p = CONFIG.layout.padding;
     const maxWidth = w - p * 2 - 80;
     
-    // 绘制标题
     ctx.save();
     ctx.font = 'bold 36px "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.primary;
@@ -507,7 +687,6 @@ const PosterRenderer = {
     
     let currentY = y + 50;
     
-    // 绘制用法列表
     usage.forEach((item, index) => {
       if (currentY > CONFIG.canvasHeight - 250) return;
       
@@ -535,7 +714,6 @@ const PosterRenderer = {
     const p = CONFIG.layout.padding;
     const qrSize = CONFIG.layout.qrSize;
     
-    // 生成二维码
     const qrCanvas = document.createElement('canvas');
     const qr = new QRCode(qrCanvas, {
       text: url,
@@ -546,7 +724,6 @@ const PosterRenderer = {
       correctLevel: QRCode.CorrectLevel.H
     });
     
-    // 绘制二维码背景
     const qrX = w - p - qrSize;
     const qrY = h - p - qrSize - 40;
     
@@ -559,10 +736,8 @@ const PosterRenderer = {
     ctx.stroke();
     ctx.restore();
     
-    // 绘制二维码
     ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
     
-    // 绘制提示文字
     ctx.save();
     ctx.font = '20px "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.secondary;
@@ -570,7 +745,6 @@ const PosterRenderer = {
     ctx.fillText(CONFIG.brand.tagline, qrX + qrSize / 2, qrY + qrSize + 32);
     ctx.restore();
     
-    // 绘制网站地址
     ctx.save();
     ctx.font = '22px "Noto Sans SC"';
     ctx.fillStyle = CONFIG.colors.gold;
@@ -579,7 +753,6 @@ const PosterRenderer = {
     ctx.restore();
   },
   
-  // 辅助方法：文字换行
   wrapText(ctx, text, maxWidth) {
     const words = text.split('');
     const lines = [];
@@ -604,7 +777,6 @@ const PosterRenderer = {
     return lines;
   },
   
-  // 辅助方法：圆角矩形
   roundRect(ctx, x, y, w, h, r) {
     const radius = Math.min(r, w / 2, h / 2);
     ctx.beginPath();
@@ -616,7 +788,6 @@ const PosterRenderer = {
     ctx.closePath();
   },
   
-  // 辅助方法：图片包含模式（保持宽高比）
   drawImageContain(ctx, img, x, y, w, h) {
     const imgW = img.naturalWidth || img.width;
     const imgH = img.naturalHeight || img.height;
@@ -640,7 +811,6 @@ const EventHandlers = {
       return;
     }
     
-    // 规范化URL
     url = Utils.normalizeUrl(url);
     
     Utils.showStatus('📥 正在抓取产品信息...', 'info');
@@ -648,14 +818,11 @@ const EventHandlers = {
     DOM.btnDownload.disabled = true;
     
     try {
-      // 抓取页面
       const html = await Network.fetchHtml(url);
       Utils.showStatus('📊 正在解析产品数据...', 'info');
       
-      // 解析数据
       let data = Parser.parseProductData(html, url);
       
-      // 应用手动覆盖
       if (DOM.titleOverride.value.trim()) {
         data.name = DOM.titleOverride.value.trim();
       }
@@ -663,14 +830,11 @@ const EventHandlers = {
         data.subtitle = DOM.subtitleOverride.value.trim();
       }
       
-      // 保存数据
       currentData = data;
       
-      // 渲染海报
       Utils.showStatus('🎨 正在生成海报...', 'info');
       await PosterRenderer.render(data);
       
-      // 启用下载
       DOM.btnDownload.disabled = false;
       Utils.showStatus('✅ 海报生成成功！', 'success');
     } catch (error) {
@@ -715,7 +879,6 @@ const EventHandlers = {
     
     currentData = null;
     
-    // 清空画布
     DOM.ctx.fillStyle = '#ffffff';
     DOM.ctx.fillRect(0, 0, CONFIG.canvasWidth, CONFIG.canvasHeight);
     DOM.canvasInfo.textContent = '等待生成海报...';
@@ -727,7 +890,6 @@ const EventHandlers = {
 
 // ========== 初始化 ==========
 function init() {
-  // 绑定事件
   DOM.btnGenerate.addEventListener('click', EventHandlers.handleGenerate);
   DOM.btnDownload.addEventListener('click', EventHandlers.handleDownload);
   DOM.btnClear.addEventListener('click', EventHandlers.handleClear);
@@ -736,14 +898,12 @@ function init() {
     if (e.key === 'Enter') EventHandlers.handleGenerate();
   });
   
-  // 初始化画布
   DOM.ctx.fillStyle = '#ffffff';
   DOM.ctx.fillRect(0, 0, CONFIG.canvasWidth, CONFIG.canvasHeight);
   
-  console.log('✅ 加国甄选海报生成器初始化完成');
+  console.log('✅ 加国甄选海报生成器初始化完成 (增强版)');
 }
 
-// 启动
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {
