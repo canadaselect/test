@@ -16,6 +16,7 @@
     .btns { display:grid; gap:10px; grid-template-columns: 1fr 1fr; margin-top: 12px; }
     button { cursor:pointer; border:none; background:#111; color:#fff; font-weight:600; }
     button.secondary { background:#fff; color:#111; border:1px solid #e6e6ee; }
+    button.pure { background:#0066cc; }
     #qrBox { display:flex; align-items:center; justify-content:center; min-height: 420px; }
     .hint { color:#666; font-size: 12px; line-height: 1.5; margin-top: 10px; }
     .small { font-size:12px; color:#666; }
@@ -27,8 +28,11 @@
       <h2 style="margin:0 0 8px;">URL → 二维码（中间 Logo）</h2>
       <div class="small">离线可用（首次加载需要网络拉库；想完全离线见文末）</div>
 
-      <label>目标 URL</label>
-      <input id="url" placeholder="https://canadiannaturals.ca/" value="https://canadiannaturals.ca/" />
+      <label>产品名称（会自动生成URL）</label>
+      <input id="productName" placeholder="例如：皇家礼豹" value="" />
+      
+      <label>完整URL（自动生成）</label>
+      <input id="url" placeholder="https://canadiannaturals.ca/皇家礼豹.html" value="https://canadiannaturals.ca/" readonly style="background:#f5f5f5;color:#666;" />
 
       <div class="row">
         <div>
@@ -61,13 +65,19 @@
       <input id="margin" type="number" min="0" max="40" value="12" />
 
       <div class="btns">
-        <button id="downloadPng">下载 PNG</button>
+        <button id="downloadPng">下载 PNG（带文字）</button>
         <button id="downloadSvg" class="secondary">下载 SVG</button>
+      </div>
+      <div style="margin-top: 8px;">
+        <button id="downloadQrOnly" class="pure">下载纯二维码（正方形）</button>
       </div>
 
       <div class="hint">
-        建议：容错选 <b>H</b>，Logo 占比别超过 <b>25%</b>；Logo 周围留白（保护边）能明显提高扫码成功率。<br>
-        如果你要像你图里“恐龙”那样，就是把 Logo 换成你自己的品牌图标即可。
+        <b>使用说明：</b><br>
+        1. 输入产品名（如"皇家礼豹"），系统会自动生成完整URL<br>
+        2. 容错选 <b>H</b>，Logo 占比别超过 <b>25%</b><br>
+        3. Logo 周围留白（保护边）能明显提高扫码成功率<br>
+        <b>点击"下载纯二维码"会同时下载两张图片：</b>一张带标题和标语，一张纯二维码。
       </div>
     </div>
 
@@ -163,6 +173,25 @@
       }, 30);
     }
 
+    // 产品名转URL的函数
+    function productNameToUrl(productName) {
+      if (!productName || !productName.trim()) {
+        return "https://canadiannaturals.ca/";
+      }
+      const name = productName.trim();
+      // URL encode 中文
+      const encoded = encodeURIComponent(name);
+      return `https://canadiannaturals.ca/${encoded}.html`;
+    }
+
+    // 监听产品名输入，自动更新URL
+    $("productName").addEventListener("input", () => {
+      const productName = $("productName").value;
+      const fullUrl = productNameToUrl(productName);
+      $("url").value = fullUrl;
+      updateQR();
+    });
+
     // 监听输入变化
     ["url","size","ecLevel","logoSize","hideBgDots","margin"].forEach(id => {
       $(id).addEventListener("input", updateQR);
@@ -187,22 +216,33 @@
 function getProductNameFromUrl(url) {
   try {
     const u = new URL(url);
-    // 1) 优先识别 .html 文件名：/超级肝王.html
-    const path = decodeURIComponent(u.pathname || "");
+    // 1) 优先识别 .html 文件名：/超级肝王.html 或 /%E8%B6%85%E7%BA%A7%E8%82%9D%E7%8E%8B.html
+    const path = u.pathname || "";
     const last = path.split("/").filter(Boolean).pop() || "";
-    if (last.endsWith(".html")) return last.replace(/\.html$/i, "");
+    
+    if (last.endsWith(".html")) {
+      // 解码URL编码的中文
+      const decoded = decodeURIComponent(last);
+      return decoded.replace(/\.html$/i, "");
+    }
 
     // 2) 其次识别 query：?product=超级肝王 或 ?name=xxx
     const p = u.searchParams.get("product") || u.searchParams.get("name") || "";
-    if (p) return p;
+    if (p) return decodeURIComponent(p);
 
     // 3) 再其次：如果路径最后一段就是中文产品名
-    if (last) return last;
+    if (last) return decodeURIComponent(last);
   } catch (e) {
     // 如果不是标准 URL（比如用户输入少了 https），兜底用字符串方式
-    const s = decodeURIComponent(String(url || ""));
+    const s = String(url || "");
     const m = s.match(/([^\/?#]+)\.html/i);
-    if (m && m[1]) return m[1];
+    if (m && m[1]) {
+      try {
+        return decodeURIComponent(m[1]);
+      } catch(e2) {
+        return m[1];
+      }
+    }
   }
   return ""; // 识别不到就返回空
 }
@@ -224,8 +264,7 @@ function wrapText(ctx, text, maxWidth) {
   return lines;
 }
 
-
-
+// 下载带文字的二维码
 $("downloadPng").addEventListener("click", async () => {
   // 1) 先从库里拿到二维码 PNG
   const blob = await qr.getRawData("png");
@@ -295,7 +334,7 @@ $("downloadPng").addEventListener("click", async () => {
 
       // 文件名也带上产品名
       const safeName = (product || "qr").replace(/[\\/:*?"<>|]/g, "_");
-      a.download = `加国甄选_${safeName}.png`;
+      a.download = `${safeName}二维码.png`;
       a.href = outUrl;
       a.click();
 
@@ -309,6 +348,94 @@ $("downloadPng").addEventListener("click", async () => {
   img.src = url;
 });
 
+// 下载纯二维码（先正方形，再带文字）— WebP
+$("downloadQrOnly").addEventListener("click", async () => {
+  const qrSize = Number($("size").value);
+  const product = getProductNameFromUrl($("url").value.trim());
+  const safeName = (product || "qr").replace(/[\\/:*?"<>|]/g, "_");
+
+  // 从库里拿二维码 PNG（作为绘制源）
+  const blob = await qr.getRawData("png");
+  const url = URL.createObjectURL(blob);
+
+  const img = new Image();
+  img.onload = () => {
+    const dpr = window.devicePixelRatio || 1;
+
+    const slogan = "花大钱给医生还是花小钱来养生？";
+    const header = product ? `加国甄选｜${product}` : "加国甄选｜二维码";
+
+    const topPad = Math.round(qrSize * 0.16);
+    const bottomPad = Math.round(qrSize * 0.20);
+    const sidePad = Math.round(qrSize * 0.08);
+
+    // ===== canvas1：带标题+标语（竖图）=====
+    const canvas1 = document.createElement("canvas");
+    canvas1.width = Math.round(qrSize * dpr);
+    canvas1.height = Math.round((qrSize + topPad + bottomPad) * dpr);
+    const ctx1 = canvas1.getContext("2d");
+    ctx1.scale(dpr, dpr);
+
+    ctx1.fillStyle = "#ffffff";
+    ctx1.fillRect(0, 0, qrSize, qrSize + topPad + bottomPad);
+
+    ctx1.fillStyle = "#111";
+    ctx1.textAlign = "center";
+    ctx1.textBaseline = "middle";
+    ctx1.font = `700 ${Math.round(qrSize * 0.06)}px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif`;
+    ctx1.fillText(header, qrSize / 2, topPad / 2);
+
+    ctx1.drawImage(img, 0, topPad, qrSize, qrSize);
+
+    const sloganYStart = topPad + qrSize + bottomPad * 0.40;
+    ctx1.font = `600 ${Math.round(qrSize * 0.05)}px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif`;
+    const maxTextWidth = qrSize - sidePad * 2;
+    const lines = wrapText(ctx1, slogan, maxTextWidth);
+    const lineHeight = Math.round(qrSize * 0.065);
+    const totalH = lines.length * lineHeight;
+    let y = sloganYStart - totalH / 2;
+    for (const line of lines) {
+      ctx1.fillText(line, qrSize / 2, y);
+      y += lineHeight;
+    }
+
+    // ===== canvas2：纯二维码（正方形）=====
+    const canvas2 = document.createElement("canvas");
+    canvas2.width = Math.round(qrSize * dpr);
+    canvas2.height = Math.round(qrSize * dpr);
+    const ctx2 = canvas2.getContext("2d");
+    ctx2.scale(dpr, dpr);
+
+    ctx2.fillStyle = "#ffffff";
+    ctx2.fillRect(0, 0, qrSize, qrSize);
+    ctx2.drawImage(img, 0, 0, qrSize, qrSize);
+
+    const downloadBlob = (b, filename) => {
+      const a = document.createElement("a");
+      const u = URL.createObjectURL(b);
+      a.download = filename;
+      a.href = u;
+      a.click();
+      URL.revokeObjectURL(u);
+    };
+
+    // ===== 先下载正方形 =====
+    canvas2.toBlob((blob2) => {
+      downloadBlob(blob2, `${safeName}qr.webp`);
+
+      // 再下载带文字（稍微延迟避免浏览器拦截多下载）
+      setTimeout(() => {
+        canvas1.toBlob((blob1) => {
+          downloadBlob(blob1, `${safeName}qr_text.webp`);
+        }, "image/webp", 0.92);
+      }, 120);
+    }, "image/webp", 0.92);
+
+    URL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+});
 
   </script>
 </body>

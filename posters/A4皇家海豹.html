@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>皇家礼豹 - 加国甄选</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-brown: #3D2817;
+            --dark-brown: #2A1810;
+            --gold: #C9A961;
+            --deep-gold: #B8973D;
+            --red-accent: #B8392E;
+            --text-dark: #4A3933;
+            --text-light: #6B5B4D;
+        }
+        
+        body {
+        font-family: 'Noto Sans SC', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        }
+
+        
+        .page {
+            width: 210mm;
+            height: 297mm;
+            background-image: url('../assets/imgs/bg/background.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 顶部品牌区域 */
+        .header {
+            text-align: center;
+            padding: 35px 50px 20px;
+            flex-shrink: 0;
+        }
+        
+        .brand-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .brand-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+        
+        .brand-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            letter-spacing: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .brand-divider {
+            width: 250px;
+            height: 3px;
+            margin: 0 auto;
+        }
+        
+        /* 主要内容区 */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        /* 左侧 1/3 */
+        .left-section {
+            padding: 25px 25px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .product-header {
+            text-align: center;
+        }
+        
+        .product-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 8px;
+        }
+        
+        .product-english {
+            font-family: 'Georgia', serif;
+            font-size: 15px;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        
+        .product-spec {
+            display: inline-block;
+            padding: 6px 18px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--deep-gold) 100%);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .product-image-box {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            border: 2px solid rgba(201,169,97,0.3);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+        
+        .product-desc {
+            background: rgba(255,255,255,0.85);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .dosage-box {
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid rgba(201,169,97,0.4);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .dosage-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--gold);
+        }
+        
+        .dosage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 6px 0;
+            font-size: 12px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        
+        .dosage-item::before {
+            content: '▸';
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        
+        .qrcode-box {
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid rgba(201,169,97,0.4);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .qrcode-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 10px;
+        }
+        
+        .qrcode-placeholder {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            background: white;
+            border: 2px dashed var(--gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .qrcode-image {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 右侧 2/3 */
+        .right-section {
+            padding: 25px 40px 20px 25px;
+            overflow-y: auto;
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            text-align: center;
+            margin-bottom: 18px;
+            padding: 12px;
+            background: linear-gradient(90deg, transparent, rgba(201,169,97,0.25), transparent);
+            border-radius: 8px;
+        }
+        
+        .benefits-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card {
+            background: rgba(255,255,255,0.95);
+            padding: 12px 14px;
+            border-radius: 10px;
+            border-left: 4px solid var(--red-accent);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-name {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--red-accent);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .benefit-name::before {
+            content: '🔴';
+            font-size: 11px;
+        }
+        
+        .benefit-desc {
+            font-size: 12px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-left: 19px;
+        }
+        
+        .audience-section {
+            background: rgba(255,255,255,0.9);
+            padding: 18px;
+            border-radius: 12px;
+            border: 2px solid rgba(201,169,97,0.3);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            margin-bottom: 16px;
+        }
+        
+        .audience-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        .audience-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-dark);
+            padding: 6px 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid var(--gold);
+        }
+        
+        .audience-item::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+        
+        .slogan-box {
+            background: linear-gradient(135deg, rgba(201,169,97,0.2) 0%, rgba(184,151,61,0.15) 100%);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid rgba(201,169,97,0.4);
+        }
+        
+        .slogan {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            line-height: 1.4;
+        }
+        
+        /* 底部 - 紧贴内容 */
+        .footer {
+            padding: 15px 50px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .footer-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--dark-brown);
+            line-height: 1.5;
+        }
+        
+        .brand-name {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--red-accent);
+        }
+        
+        /* 滚动条美化 */
+        .right-section::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .right-section::-webkit-scrollbar-track {
+            background: rgba(201,169,97,0.1);
+            border-radius: 3px;
+        }
+        
+        .right-section::-webkit-scrollbar-thumb {
+            background: rgba(201,169,97,0.5);
+            border-radius: 3px;
+        }
+        
+        .right-section::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+            .right-section {
+                overflow: visible;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header">
+            <div class="brand-container">
+                <img class="brand-logo" src="logo.png" alt="Logo" 
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%2228%22 fill=%22%23C9A961%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2224%22 font-weight=%22bold%22%3ELogo%3C/text%3E%3C/svg%3E'">
+                <h1 class="brand-title">加国甄选</h1>
+            </div>
+            <div class="brand-divider"></div>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- 左侧 1/3 -->
+            <div class="left-section">
+                <div class="product-header">
+                    <h2 class="product-name">皇家礼豹</h2>
+                    <p class="product-english">Royal Seal Gift <br> Premium Formula</p>
+                    <span class="product-spec">规格：1088 粒 / 瓶</span>
+                </div>
+                
+                <div class="product-image-box">
+                    <img class="product-image" 
+                         src="https://canadiannaturals.ca/assets/imgs/product/%E7%9A%87%E5%AE%B6%E7%A4%BC%E8%B1%B91.webp" 
+                         alt="皇家礼豹海豹油"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22400%22%3E%3Crect fill=%22%23F5F1E8%22 width=%22300%22 height=%22400%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%233D2817%22 font-size=%2220%22%3E皇家礼豹%3C/text%3E%3C/svg%3E'">
+                </div>
+                
+                <div class="product-desc">
+                    皇家礼豹，纽芬兰政府联合产品，鼎级配制 1088 粒超大容量，富含高浓度 Omega-3。这款海豹油采用严格的政府质量监督标准，从原料采集到成品封装，每一步都经过严格把控，是全面调节身心平衡、提升生命活力的理想选择。
+                </div>
+                
+                <div class="dosage-box">
+                    <div class="dosage-title">服用方法</div>
+                    <div class="dosage-item">每次 2 粒，每天 2 次</div>
+                    <div class="dosage-item">早晚饭后，温水送服</div>
+                </div>
+                
+                <div class="qrcode-box">
+                    <div class="qrcode-title">扫码查看产品详情</div>
+                    <img class="qrcode-image" src="加国甄选_皇家礼豹.png" alt="产品详情二维码"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div class="qrcode-placeholder" style="display:none;">
+                        在此放置<br>产品链接<br>二维码
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧 2/3 -->
+            <div class="right-section">
+                <h3 class="section-title">主要成分与功效</h3>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-name">高浓度 Omega-3: 心血管支持</div>
+                        <div class="benefit-desc">富含 Omega-3 脂肪酸，有助于维护心血管健康，支持血脂、血压、血糖的平衡状态，适合关注"三高"的人群。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">增强免疫力: 提升抵抗力</div>
+                        <div class="benefit-desc">多种天然营养成分协同作用，有助于增强机体免疫功能，提升身体抵抗力。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">促进循环: 调节胆固醇、软化血管</div>
+                        <div class="benefit-desc">有助于调节胆固醇水平，改善血液循环，对血脂、血压管理提供积极支持。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">眼耳健康支持: 视力与听力辅助</div>
+                        <div class="benefit-desc">对视力模糊、耳鸣等不适有辅助改善作用，有助于维护眼部和耳部健康。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">关节与末梢循环支持: 缓解不适、提升活力</div>
+                        <div class="benefit-desc">帮助改善末梢循环，缓解手脚麻木、冰凉；对关节不适（含类风湿）提供辅助支持，并提升整体精力状态。</div>
+                    </div>
+                </div>
+                
+                <div class="audience-section">
+                    <div class="audience-title">适合人群</div>
+                    <div class="audience-grid">
+                        <div class="audience-item">三高人群（血脂、血压、血糖偏高者）</div>
+                        <div class="audience-item">关注心脑血管健康人士</div>
+                        <div class="audience-item">免疫力低下、易感冒人群</div>
+                        <div class="audience-item">视力下降、耳鸣耳聋患者</div>
+                        <div class="audience-item">手脚麻木、贫血乏力人群</div>
+                        <div class="audience-item">关节不适、类风湿患者</div>
+                        <div class="audience-item">中老年人日常滋养调理</div>
+                        <div class="audience-item">关注全面健康管理人士</div>
+                    </div>
+                </div>
+                
+                <div class="slogan-box">
+                    <div class="slogan">花大钱给医生还是花小钱来养生？</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-text">
+                <span class="brand-name">加国甄选</span>: 严选100%纯天然加拿大本土保健品牌，用看得见的标准，守护看不见的健康
+            </div>
+        </div>
+    </div>
+</body>
+</html>
