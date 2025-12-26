@@ -50,7 +50,7 @@
         .header {
             text-align: center;
             flex-shrink: 0;
-            padding:5px;
+            padding:10px;
         }
         
         .brand-container {
@@ -108,7 +108,7 @@
             font-size: 18px;
             font-weight: 900;
             color: var(--dark-brown);
-
+            margin-bottom: 4px;
         }
         
         .product-english {
@@ -131,9 +131,24 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.15);
         }
         
+        .product-image-box {
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            border: 1px solid rgba(201,169,97,0.3);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
         .product-desc {
             background: rgba(255,255,255,0.85);
-            padding: 5px;
+            padding: 8px;
             border-radius: 6px;
             border-left: 2px solid var(--gold);
             font-size: 6.5px;
@@ -142,52 +157,9 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
         }
         
-        .audience-section {
-            background: rgba(255,255,255,0.9);
-            padding: 5px;
-            border-radius: 6px;
-            border: 1px solid rgba(201,169,97,0.3);
-            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-        }
-        
-        .audience-title {
-            font-family: 'Noto Serif SC', serif;
-            font-size: 9px;
-            font-weight: 900;
-            color: var(--dark-brown);
-            margin-bottom: 5px;
-            text-align: center;
-        }
-        
-        .audience-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3px;
-        }
-        
-        .audience-item {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            font-size: 6.5px;
-            color: var(--text-dark);
-            padding: 0px 4px;
-            background: white;
-            border-radius: 3px;
-            border-left: 1.5px solid var(--gold);
-        }
-        
-        .audience-item::before {
-            content: '✓';
-            color: var(--gold);
-            font-weight: 900;
-            font-size: 6px;
-            flex-shrink: 0;
-        }
-        
         .dosage-box {
             background: rgba(255,255,255,0.9);
-            padding: 5px;
+            padding: 8px;
             border-radius: 6px;
             border: 1px solid rgba(201,169,97,0.4);
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
@@ -198,7 +170,8 @@
             font-size: 9px;
             font-weight: 900;
             color: var(--dark-brown);
-
+            margin-bottom: 5px;
+            padding-bottom: 4px;
             border-bottom: 1px solid var(--gold);
         }
         
@@ -206,7 +179,7 @@
             display: flex;
             align-items: flex-start;
             gap: 4px;
-            margin: 0px 0;
+            margin: 3px 0;
             font-size: 6.5px;
             color: var(--text-dark);
             line-height: 1.5;
@@ -222,7 +195,7 @@
         
         .qrcode-box {
             background: rgba(255,255,255,0.95);
-            padding: 5px;
+            padding: 8px;
             border-radius: 6px;
             border: 1px solid rgba(201,169,97,0.4);
             box-shadow: 0 1px 4px rgba(0,0,0,0.08);
@@ -268,29 +241,14 @@
             overflow-y: auto;
         }
         
-        .product-image-box {
-            background: white;
-            padding: 6px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            border: 1px solid rgba(201,169,97,0.3);
-            margin-bottom: 8px;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-        
         .section-title {
             font-family: 'Noto Serif SC', serif;
             font-size: 14px;
             font-weight: 900;
             color: var(--dark-brown);
             text-align: center;
-            padding: 5px;
+            margin-bottom: 9px;
+            padding: 6px;
             background: linear-gradient(90deg, transparent, rgba(201,169,97,0.25), transparent);
             border-radius: 5px;
         }
@@ -298,8 +256,8 @@
         .benefits-grid {
             display: flex;
             flex-direction: column;
-            gap: 3px;
-            margin-bottom: 5px;
+            gap: 5px;
+            margin-bottom: 10px;
         }
         
         .benefit-card {
@@ -336,6 +294,50 @@
             color: var(--text-dark);
             line-height: 1.6;
             padding-left: 10px;
+        }
+        
+        .audience-section {
+            background: rgba(255,255,255,0.9);
+            padding: 9px;
+            border-radius: 6px;
+            border: 1px solid rgba(201,169,97,0.3);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            margin-bottom: 8px;
+        }
+        
+        .audience-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+        }
+        
+        .audience-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 6.5px;
+            color: var(--text-dark);
+            padding: 3px 5px;
+            background: white;
+            border-radius: 3px;
+            border-left: 1.5px solid var(--gold);
+        }
+        
+        .audience-item::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 7px;
+            flex-shrink: 0;
         }
         
         .slogan-box {
@@ -425,31 +427,25 @@
             <div class="left-section">
                 <div class="product-header">
                     <h2 class="product-name">皇家礼豹</h2>
+                    <p class="product-english">Royal Seal Gift <br> Premium Formula</p>
                     <span class="product-spec">规格：1088 粒 / 瓶</span>
+                </div>
+                
+                <div class="product-image-box">
+                    <img class="product-image" 
+                         src="https://canadiannaturals.ca/assets/imgs/product/%E7%9A%87%E5%AE%B6%E7%A4%BC%E8%B1%B91.webp" 
+                         alt="皇家礼豹海豹油"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23F5F1E8%22 width=%22120%22 height=%22160%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%233D2817%22 font-size=%228%22%3E皇家礼豹%3C/text%3E%3C/svg%3E'">
                 </div>
                 
                 <div class="product-desc">
                     皇家礼豹，纽芬兰政府联合产品，鼎级配制 1088 粒超大容量，富含高浓度 Omega-3。这款海豹油采用严格的政府质量监督标准，从原料采集到成品封装，每一步都经过严格把控，是全面调节身心平衡、提升生命活力的理想选择。
                 </div>
                 
-                <div class="audience-section">
-                    <div class="audience-title">适合人群</div>
-                    <div class="audience-grid">
-                        <div class="audience-item">血脂、血压、血糖偏高者</div>
-                        <div class="audience-item">关注心脑血管健康人士</div>
-                        <div class="audience-item">免疫力低下、易感冒人群</div>
-                        <div class="audience-item">视力下降、耳鸣耳聋患者</div>
-                        <div class="audience-item">手脚麻木、贫血乏力人群</div>
-                        <div class="audience-item">关节不适、类风湿患者</div>
-                        <div class="audience-item">中老年人日常滋养调理</div>
-                        <div class="audience-item">关注全面健康管理人士</div>
-                    </div>
-                </div>
-                
                 <div class="dosage-box">
                     <div class="dosage-title">服用方法</div>
-                    <div class="dosage-item">每次 2 粒,每天 2 次</div>
-                    <div class="dosage-item">早晚饭后,温水送服</div>
+                    <div class="dosage-item">每次 2 粒，每天 2 次</div>
+                    <div class="dosage-item">早晚饭后，温水送服</div>
                 </div>
                 
                 <div class="qrcode-box">
@@ -460,54 +456,56 @@
                         在此放置<br>产品链接<br>二维码
                     </div>
                 </div>
-
-              <div class="slogan-box">
-                    <div class="slogan">花大钱给医生<br>还是花小钱来养生？</div>
-                </div>
-
             </div>
             
             <!-- 右侧 2/3 -->
             <div class="right-section">
-                <div class="product-image-box">
-                    <img class="product-image" 
-                         src="https://canadiannaturals.ca/assets/imgs/product/%E7%9A%87%E5%AE%B6%E7%A4%BC%E8%B1%B91.webp" 
-                         alt="皇家礼豹海豹油"
-                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23F5F1E8%22 width=%22120%22 height=%22160%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%233D2817%22 font-size=%228%22%3E皇家礼豹%3C/text%3E%3C/svg%3E'">
-                </div>
-                
                 <h3 class="section-title">主要成分与功效</h3>
                 
                 <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-name">高浓度 Omega-3：心血管支持</div>
-                    <div class="benefit-desc">
-                    富含 Omega-3 脂肪酸，有助于维护心血管健康，支持血脂、血压、血糖的平衡状态，适合关注“三高”的人群。
+                    <div class="benefit-card">
+                        <div class="benefit-name">高浓度 Omega-3: 心血管支持</div>
+                        <div class="benefit-desc">富含 Omega-3 脂肪酸，有助于维护心血管健康，支持血脂、血压、血糖的平衡状态，适合关注"三高"的人群。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">增强免疫力: 提升抵抗力</div>
+                        <div class="benefit-desc">多种天然营养成分协同作用，有助于增强机体免疫功能，提升身体抵抗力。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">促进循环: 调节胆固醇、软化血管</div>
+                        <div class="benefit-desc">有助于调节胆固醇水平，改善血液循环，对血脂、血压管理提供积极支持。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">眼耳健康支持: 视力与听力辅助</div>
+                        <div class="benefit-desc">对视力模糊、耳鸣等不适有辅助改善作用，有助于维护眼部和耳部健康。</div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-name">关节与末梢循环支持: 缓解不适、提升活力</div>
+                        <div class="benefit-desc">帮助改善末梢循环，缓解手脚麻木、冰凉；对关节不适（含类风湿）提供辅助支持，并提升整体精力状态。</div>
                     </div>
                 </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-name">增强免疫力：提升抵抗力</div>
-                    <div class="benefit-desc">
-                    多种天然营养成分协同作用，有助于增强机体免疫功能，提升身体抵抗力。
+                
+                <div class="audience-section">
+                    <div class="audience-title">适合人群</div>
+                    <div class="audience-grid">
+                        <div class="audience-item">血脂、血压、血糖偏高者）</div>
+                        <div class="audience-item">关注心脑血管健康人士</div>
+                        <div class="audience-item">免疫力低下、易感冒人群</div>
+                        <div class="audience-item">视力下降、耳鸣耳聋患者</div>
+                        <div class="audience-item">手脚麻木、贫血乏力人群</div>
+                        <div class="audience-item">关节不适、类风湿患者</div>
+                        <div class="audience-item">中老年人日常滋养调理</div>
+                        <div class="audience-item">关注全面健康管理人士</div>
                     </div>
                 </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-name">促进循环：调节胆固醇、软化血管</div>
-                    <div class="benefit-desc">
-                    有助于调节胆固醇水平，改善血液循环，对血脂、血压管理提供积极支持。
-                    </div>
+                
+                <div class="slogan-box">
+                    <div class="slogan">花大钱给医生还是花小钱来养生？</div>
                 </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-name">眼耳 + 关节与末梢循环：多维度舒适支持</div>
-                    <div class="benefit-desc">
-                    对视力与听力健康提供支持；同时帮助改善末梢循环，缓解手脚麻木、冰凉，并对关节不适提供辅助支持，提升整体活力状态。
-                    </div>
-                </div>
-                </div>
-
             </div>
         </div>
         
