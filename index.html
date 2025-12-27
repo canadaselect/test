@@ -86,6 +86,47 @@
   <link rel="stylesheet" href="assets/css/fontawesome-pro.css">
   <link rel="stylesheet" href="assets/css/spacing.css">
   <link rel="stylesheet" href="assets/css/pharmecy.css">
+  
+  <!-- Custom styles for discount area -->
+  <style>
+    .discount-thumb-wrapper {
+      background: #ffffff;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .discount-thumb-wrapper:hover {
+      border-color: #059473;
+      box-shadow: 0 4px 12px rgba(5, 148, 115, 0.15);
+      transform: translateY(-5px);
+    }
+    
+    .discount-thumb-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+    
+    .discount-thumb-wrapper:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+      .discount-thumb-wrapper {
+        height: 220px;
+        padding: 15px;
+      }
+    }
+  </style>
 </head>
 
 
@@ -162,7 +203,7 @@
                            <i class="fal fa-envelope"></i>
                         </div>
                         <div class="offcanvas__contact-text">
-                           <a href="tel:+012-345-6789"><span class="mailto:info@canadiannaturals.ca">info@canadiannaturals.ca</span></a>
+                           <a href="tel:+012-345-6789"><span class="mailto:info@canadiannaturals.ca"><span class="__cf_email__" data-cfemail="d2bbbcb4bd92b1b3bcb3b6bbb3bcbcb3a6a7a0b3bea1fcb1b3">[email&#160;protected]</span></span></a>
                         </div>
                      </li>
                   </ul>
@@ -426,9 +467,8 @@
                      </h3>
                      </div>
                      <a href="皇家礼豹.html" aria-label="皇家礼豹 产品详情">
-                     <div
-                        class="discount-thumb"
-                        data-background="assets/imgs/product/discount/皇家礼豹.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/皇家礼豹1.webp" alt="皇家礼豹 加拿大保健品">
                      </div>
                      </a>
                   </div>
@@ -444,9 +484,8 @@
                      </h3>
                      </div>
                      <a href="超级肝王.html" aria-label="超级肝王 产品详情">
-                     <div
-                        class="discount-thumb"
-                        data-background="assets/imgs/product/discount/超级肝王.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/超级肝王1.webp" alt="超级肝王 加拿大保健品">
                      </div>
                      </a>
                   </div>
@@ -462,9 +501,8 @@
                      </h3>
                      </div>
                      <a href="皇家玛卡.html" aria-label="皇家玛卡 产品详情">
-                     <div
-                        class="discount-thumb"
-                        data-background="assets/imgs/product/discount/皇家玛卡.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/皇家玛卡1.webp" alt="皇家玛卡 加拿大保健品">
                      </div>
                      </a>
                   </div>
@@ -480,9 +518,8 @@
                      </h3>
                      </div>
                      <a href="祛斑灵.html" aria-label="祛斑灵 产品详情">
-                     <div
-                        class="discount-thumb"
-                        data-background="assets/imgs/product/discount/祛斑灵.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/祛斑灵1.webp" alt="祛斑灵 加拿大保健品">
                      </div>
                      </a>
                   </div>
@@ -498,9 +535,8 @@
                      </h3>
                      </div>
                      <a href="抗癌灵.html" aria-label="抗癌灵 产品详情">
-                     <div
-                        class="discount-thumb"
-                        data-background="assets/imgs/product/discount/抗癌灵.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/抗癌灵1.webp" alt="抗癌灵 加拿大保健品">
                      </div>
                      </a>
                   </div>
@@ -516,11 +552,10 @@
                      </h3>
                   </div>
                   <a href="降糖王.html" aria-label="降糖王 产品详情">
-                     <div
-                     class="discount-thumb"
-                     data-background="assets/imgs/product/discount/降糖王.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/降糖王1.webp" alt="降糖王 加拿大保健品">
                      </div>
-                  </a>
+                     </a>
                </div>
                </div>
 
@@ -534,11 +569,10 @@
                      </h3>
                   </div>
                   <a href="西洋参胶囊.html" aria-label="西洋参胶囊 产品详情">
-                     <div
-                     class="discount-thumb"
-                     data-background="assets/imgs/product/discount/西洋参胶囊.png">
+                     <div class="discount-thumb-wrapper">
+                        <img src="assets/imgs/product/西洋参胶囊1.webp" alt="西洋参胶囊 加拿大保健品">
                      </div>
-                  </a>
+                     </a>
                </div>
                </div>
 
