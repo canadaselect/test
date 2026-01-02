@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>URL 转二维码 + 中间 Logo</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; padding: 18px; background:#f7f7fb; }
+    .wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 16px; grid-template-columns: 1fr; }
+    @media (min-width: 920px){ .wrap{ grid-template-columns: 380px 1fr; } }
+    .card { background:#fff; border-radius: 14px; padding: 14px; box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+    label { font-size: 13px; color:#333; display:block; margin: 10px 0 6px; }
+    input, select, button { width:100%; padding:10px 12px; border-radius: 10px; border:1px solid #e6e6ee; font-size: 14px; }
+    input[type="range"]{ padding: 0; }
+    .row { display:grid; gap:10px; grid-template-columns: 1fr 1fr; }
+    .btns { display:grid; gap:10px; grid-template-columns: 1fr 1fr; margin-top: 12px; }
+    button { cursor:pointer; border:none; background:#111; color:#fff; font-weight:600; }
+    button.secondary { background:#fff; color:#111; border:1px solid #e6e6ee; }
+    #qrBox { display:flex; align-items:center; justify-content:center; min-height: 420px; }
+    .hint { color:#666; font-size: 12px; line-height: 1.5; margin-top: 10px; }
+    .small { font-size:12px; color:#666; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h2 style="margin:0 0 8px;">URL → 二维码（中间 Logo）</h2>
+      <div class="small">离线可用（首次加载需要网络拉库；想完全离线见文末）</div>
+
+      <label>目标 URL</label>
+      <input id="url" placeholder="https://canadiannaturals.ca/" value="https://canadiannaturals.ca/" />
+
+      <div class="row">
+        <div>
+          <label>尺寸（px）</label>
+          <input id="size" type="number" min="160" max="1400" value="420" />
+        </div>
+        <div>
+          <label>容错等级（越高越能遮 Logo）</label>
+          <select id="ecLevel">
+            <option value="L">L（7%）</option>
+            <option value="M">M（15%）</option>
+            <option value="Q">Q（25%）</option>
+            <option value="H" selected>H（30%）</option>
+          </select>
+        </div>
+      </div>
+
+      <label>上传 Logo（PNG/SVG/JPG）</label>
+      <input id="logo" type="file" accept="image/*" />
+
+      <label>Logo 占比（建议 18%–26%）</label>
+      <input id="logoSize" type="range" min="10" max="34" value="22" />
+      <div class="small">当前：<span id="logoSizeText">22%</span></div>
+
+      <label>Logo 白底保护边（避免干扰二维码点）</label>
+      <input id="hideBgDots" type="range" min="0" max="14" value="6" />
+      <div class="small">当前：<span id="hideBgDotsText">6px</span></div>
+
+      <label>外边距（静区 quiet zone）</label>
+      <input id="margin" type="number" min="0" max="40" value="12" />
+
+      <div class="btns">
+        <button id="downloadPng">下载 PNG</button>
+        <button id="downloadSvg" class="secondary">下载 SVG</button>
+      </div>
+
+      <div class="hint">
+        建议：容错选 <b>H</b>，Logo 占比别超过 <b>25%</b>；Logo 周围留白（保护边）能明显提高扫码成功率。<br>
+        如果你要像你图里“恐龙”那样，就是把 Logo 换成你自己的品牌图标即可。
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="qrBox"></div>
+    </div>
+  </div>
+
+  <!-- 方案A：qr-code-styling（支持中间logo & 下载PNG/SVG） -->
+  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const qrBox = $("qrBox");
+
+    let logoDataUrl = ""; // 存储上传的logo
+    const qr = new QRCodeStyling({
+      width: Number($("size").value),
+      height: Number($("size").value),
+      type: "svg",
+      data: $("url").value.trim(),
+      margin: Number($("margin").value),
+      qrOptions: {
+        errorCorrectionLevel: $("ecLevel").value,
+      },
+      dotsOptions: {
+        type: "rounded",
+      },
+      cornersSquareOptions: {
+        type: "extra-rounded",
+      },
+      cornersDotOptions: {
+        type: "dot",
+      },
+      backgroundOptions: {
+        color: "#ffffff",
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: Number($("hideBgDots").value), // logo周围留白
+        hideBackgroundDots: true,
+      },
+    });
+
+    qr.append(qrBox);
+
+    function updateTexts(){
+      $("logoSizeText").textContent = $("logoSize").value + "%";
+      $("hideBgDotsText").textContent = $("hideBgDots").value + "px";
+    }
+
+    function updateQR(){
+      updateTexts();
+
+      const size = Number($("size").value);
+      const margin = Number($("margin").value);
+      const logoPercent = Number($("logoSize").value);
+
+      // 计算 logo 的宽高（按比例）
+      const logoW = Math.round(size * (logoPercent / 100));
+      const logoH = logoW;
+
+      qr.update({
+        width: size,
+        height: size,
+        data: $("url").value.trim(),
+        margin,
+        qrOptions: {
+          errorCorrectionLevel: $("ecLevel").value,
+        },
+        image: logoDataUrl || undefined,
+        imageOptions: {
+          crossOrigin: "anonymous",
+          margin: Number($("hideBgDots").value),
+          hideBackgroundDots: true,
+          imageSize: 1, // 让库按传入logo尺寸显示
+        }
+      });
+
+      // qr-code-styling 的 imageSize 是比例参数，部分版本不精确
+      // 这里用一个小技巧：通过 DOM 缩放 logo（稳定）
+      setTimeout(() => {
+        const img = qrBox.querySelector("image"); // SVG 内的 <image>
+        if (img) {
+          // 将 logo 居中并按我们计算尺寸设置
+          img.setAttribute("width", String(logoW));
+          img.setAttribute("height", String(logoH));
+          img.setAttribute("x", String((size - logoW) / 2));
+          img.setAttribute("y", String((size - logoH) / 2));
+          img.setAttribute("preserveAspectRatio", "xMidYMid meet");
+        }
+      }, 30);
+    }
+
+    // 监听输入变化
+    ["url","size","ecLevel","logoSize","hideBgDots","margin"].forEach(id => {
+      $(id).addEventListener("input", updateQR);
+      $(id).addEventListener("change", updateQR);
+    });
+
+    // 处理 logo 上传
+    $("logo").addEventListener("change", async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        logoDataUrl = reader.result; // base64 dataUrl
+        updateQR();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    updateQR();
+
+function getProductNameFromUrl(url) {
+  try {
+    const u = new URL(url);
+    // 1) 优先识别 .html 文件名：/超级肝王.html
+    const path = decodeURIComponent(u.pathname || "");
+    const last = path.split("/").filter(Boolean).pop() || "";
+    if (last.endsWith(".html")) return last.replace(/\.html$/i, "");
+
+    // 2) 其次识别 query：?product=超级肝王 或 ?name=xxx
+    const p = u.searchParams.get("product") || u.searchParams.get("name") || "";
+    if (p) return p;
+
+    // 3) 再其次：如果路径最后一段就是中文产品名
+    if (last) return last;
+  } catch (e) {
+    // 如果不是标准 URL（比如用户输入少了 https），兜底用字符串方式
+    const s = decodeURIComponent(String(url || ""));
+    const m = s.match(/([^\/?#]+)\.html/i);
+    if (m && m[1]) return m[1];
+  }
+  return ""; // 识别不到就返回空
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(""); // 中文按字切
+  const lines = [];
+  let line = "";
+  for (const ch of words) {
+    const test = line + ch;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line);
+      line = ch;
+    } else {
+      line = test;
+    }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+
+
+$("downloadPng").addEventListener("click", async () => {
+  // 1) 先从库里拿到二维码 PNG
+  const blob = await qr.getRawData("png");
+  const url = URL.createObjectURL(blob);
+
+  const img = new Image();
+  img.onload = () => {
+    // 2) 计算画布尺寸（上面加标题，下面加slogan）
+    const qrSize = Number($("size").value); // 你输入的二维码尺寸
+    const dpr = window.devicePixelRatio || 1;
+
+    const slogan = "花大钱给医生还是花小钱来养生？";
+
+    const product = getProductNameFromUrl($("url").value.trim());
+    const header = product ? `加国甄选｜${product}` : "加国甄选｜二维码";
+
+    // 文字区高度（跟二维码尺寸成比例）
+    const topPad = Math.round(qrSize * 0.16);
+    const bottomPad = Math.round(qrSize * 0.20);
+    const sidePad = Math.round(qrSize * 0.08);
+
+    // 画布
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(qrSize * dpr);
+    canvas.height = Math.round((qrSize + topPad + bottomPad) * dpr);
+
+    const ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+
+    // 背景白底
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, qrSize, qrSize + topPad + bottomPad);
+
+    // 3) 画标题
+    ctx.fillStyle = "#111";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `700 ${Math.round(qrSize * 0.06)}px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif`;
+    ctx.fillText(header, qrSize / 2, topPad / 2);
+
+    // 4) 画二维码（居中）
+    const qrY = topPad;
+    ctx.drawImage(img, 0, qrY, qrSize, qrSize);
+
+    // 5) 画 slogan（自动换行，居中）
+    const sloganYStart = topPad + qrSize + bottomPad * 0.40;
+    ctx.font = `600 ${Math.round(qrSize * 0.05)}px system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif`;
+    ctx.fillStyle = "#111";
+
+    const maxTextWidth = qrSize - sidePad * 2;
+    const lines = wrapText(ctx, slogan, maxTextWidth);
+    const lineHeight = Math.round(qrSize * 0.065);
+
+    // 让多行整体垂直居中在底部区域
+    const totalH = lines.length * lineHeight;
+    let y = sloganYStart - totalH / 2;
+
+    for (const line of lines) {
+      ctx.fillText(line, qrSize / 2, y);
+      y += lineHeight;
+    }
+
+    // 6) 下载
+    canvas.toBlob((outBlob) => {
+      const a = document.createElement("a");
+      const outUrl = URL.createObjectURL(outBlob);
+
+      // 文件名也带上产品名
+      const safeName = (product || "qr").replace(/[\\/:*?"<>|]/g, "_");
+      a.download = `加国甄选_${safeName}.png`;
+      a.href = outUrl;
+      a.click();
+
+      URL.revokeObjectURL(outUrl);
+    }, "image/png");
+
+    // 清理
+    URL.revokeObjectURL(url);
+  };
+
+  img.src = url;
+});
+
+
+  </script>
+</body>
+</html>
