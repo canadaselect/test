@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>美人归 - 加国甄选 (A6)</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-brown: #3D2817;
+            --dark-brown: #2A1810;
+            --gold: #C9A961;
+            --deep-gold: #B8973D;
+            --red-accent: #B8392E;
+            --text-dark: #4A3933;
+            --text-light: #6B5B4D;
+        }
+        
+        body {
+        font-family: 'Noto Sans SC', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        }
+
+        
+        .page {
+            width: 105mm;
+            height: 148mm;
+            background-image: url('../assets/imgs/bg/background.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* 顶部品牌区域 */
+        .header {
+            text-align: center;
+            flex-shrink: 0;
+            padding:5px;
+        }
+        
+        .brand-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+ 
+        }
+        
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+        
+        .brand-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            letter-spacing: 5px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .brand-divider {
+            width: 130px;
+            height: 2px;
+            margin: 0 auto;
+        }
+        
+        /* 主要内容区 */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 0;
+            flex: 1;
+            min-height: 0;
+        }
+        
+        /* 左侧 1/3 */
+        .left-section {
+            padding: 0px 10px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .product-header {
+            text-align: center;
+        }
+        
+        .product-name {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--dark-brown);
+
+        }
+        
+        .product-english {
+            font-family: 'Georgia', serif;
+            font-size: 7.5px;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 0px;
+            line-height: 1.0;
+        }
+        
+        .product-spec {
+            display: inline-block;
+            padding: 3px 10px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--deep-gold) 100%);
+            color: white;
+            font-size: 7.5px;
+            font-weight: 700;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+        
+        .product-desc {
+            background: rgba(255,255,255,0.85);
+            padding: 5px;
+            border-radius: 6px;
+            border-left: 2px solid var(--gold);
+            font-size: 6.5px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        
+        .audience-section {
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid rgba(201,169,97,0.3);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        
+        .audience-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 9px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .audience-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3px;
+        }
+        
+        .audience-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 6.5px;
+            color: var(--text-dark);
+            padding: 0px 4px;
+            background: white;
+            border-radius: 3px;
+            border-left: 1.5px solid var(--gold);
+        }
+        
+        .audience-item::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 6px;
+            flex-shrink: 0;
+        }
+        
+        .dosage-box {
+            background: rgba(255,255,255,0.9);
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid rgba(201,169,97,0.4);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        
+        .dosage-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 9px;
+            font-weight: 900;
+            color: var(--dark-brown);
+
+            border-bottom: 1px solid var(--gold);
+        }
+        
+        .dosage-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin: 0px 0;
+            font-size: 6.5px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        
+        .dosage-item::before {
+            content: '▸';
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 7px;
+            flex-shrink: 0;
+        }
+        
+        .qrcode-box {
+            background: rgba(255,255,255,0.95);
+            padding: 5px;
+            border-radius: 6px;
+            border: 1px solid rgba(201,169,97,0.4);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .qrcode-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 7.5px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            margin-bottom: 5px;
+        }
+        
+        .qrcode-placeholder {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            background: white;
+            border: 1px dashed var(--gold);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 6px;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .qrcode-image {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        /* 右侧 2/3 */
+        .right-section {
+            padding: 0px 10px 10px 10px;
+            overflow-y: auto;
+        }
+        
+        .product-image-box {
+            background: white;
+            padding: 6px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            border: 1px solid rgba(201,169,97,0.3);
+            margin-bottom: 8px;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 14px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            text-align: center;
+            padding: 5px;
+            background: linear-gradient(90deg, transparent, rgba(201,169,97,0.25), transparent);
+            border-radius: 5px;
+        }
+        
+        .benefits-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-bottom: 5px;
+        }
+        
+        .benefit-card {
+            background: rgba(255,255,255,0.95);
+            padding: 6px 7px;
+            border-radius: 5px;
+            border-left: 2px solid var(--red-accent);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .benefit-card:hover {
+            transform: translateX(2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .benefit-name {
+            font-size: 8px;
+            font-weight: 900;
+            color: var(--red-accent);
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .benefit-name::before {
+            content: '🔴';
+            font-size: 5.5px;
+        }
+        
+        .benefit-desc {
+            font-size: 6.5px;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-left: 10px;
+        }
+        
+        .slogan-box {
+            background: linear-gradient(135deg, rgba(201,169,97,0.2) 0%, rgba(184,151,61,0.15) 100%);
+            padding: 7px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid rgba(201,169,97,0.4);
+        }
+        
+        .slogan {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 9px;
+            font-weight: 900;
+            color: var(--dark-brown);
+            line-height: 1.4;
+        }
+        
+        /* 底部 - 紧贴内容 */
+        .footer {
+            padding: 8px 25px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .footer-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 7px;
+            font-weight: 700;
+            color: var(--dark-brown);
+            line-height: 1.5;
+        }
+        
+        .brand-name {
+            font-size: 8px;
+            font-weight: 900;
+            color: var(--red-accent);
+        }
+        
+        /* 滚动条美化 */
+        .right-section::-webkit-scrollbar {
+            width: 3px;
+        }
+        
+        .right-section::-webkit-scrollbar-track {
+            background: rgba(201,169,97,0.1);
+            border-radius: 1.5px;
+        }
+        
+        .right-section::-webkit-scrollbar-thumb {
+            background: rgba(201,169,97,0.5);
+            border-radius: 1.5px;
+        }
+        
+        .right-section::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+            }
+            .right-section {
+                overflow: visible;
+            }
+        }
+    </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- Header -->
+        <div class="header">
+            <div class="brand-container">
+                <img class="brand-logo" src="logo.png" alt="Logo" 
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22%3E%3Ccircle cx=%2212%22 cy=%2212%22 r=%2211%22 fill=%22%23C9A961%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22white%22 font-size=%2210%22 font-weight=%22bold%22%3EL%3C/text%3E%3C/svg%3E'">
+                <h1 class="brand-title">加国甄选</h1>
+            </div>
+
+        </div>
+
+    <div class="content-wrapper">
+      <!-- Left 1/3 -->
+      <div class="left-section">
+        <div class="product-header">
+          <h2 class="product-name">美人归</h2>
+          <span class="product-spec">规格:120 粒 / 瓶</span>
+        </div>
+
+        <div class="product-desc">
+          美人归融合中西草药精华与现代生物科技,专为女性更年期调理设计。双向调节雌激素,帮助改善潮热盗汗、失眠心悸、情绪波动等更年期综合症状,支持内分泌平衡,让您重现靓丽青春。
+        </div>
+
+        <div class="audience-section">
+          <div class="audience-title">适合人群</div>
+          <div class="audience-grid">
+            <div class="audience-item">更年期女性</div>
+            <div class="audience-item">经期不规律</div>
+            <div class="audience-item">潮热盗汗</div>
+            <div class="audience-item">失眠多梦</div>
+            <div class="audience-item">情绪不稳</div>
+            <div class="audience-item">皮肤干燥</div>
+            <div class="audience-item">内分泌失调</div>
+            <div class="audience-item">女性日常保养</div>
+          </div>
+        </div>
+
+        <div class="dosage-box">
+          <div class="dosage-title">服用方法</div>
+          <div class="dosage-item">每次 2 粒,每天 2 次</div>
+          <div class="dosage-item">建议早晚饭后温水送服</div>
+        </div>
+
+        <div class="qrcode-box">
+          <div class="qrcode-title">扫码查看产品详情</div>
+          <img class="qrcode-image" src="qrcodes/美人归qr.webp" alt="美人归二维码"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="qrcode-placeholder" style="display:none;">
+            在此放置<br>产品链接<br>二维码
+          </div>
+        </div>
+
+              <div class="slogan-box">
+                    <div class="slogan">花大钱给医生<br>还是花小钱来养生?</div>
+                </div>
+                  </div>
+
+      <!-- Right 2/3 -->
+      <div class="right-section">
+        <div class="product-image-box">
+          <img class="product-image"
+               src="https://canadiannaturals.ca/assets/imgs/product/%E7%BE%8E%E4%BA%BA%E5%BD%921.webp"
+               alt="美人归"
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22380%22%3E%3Crect fill=%22%23F5F1E8%22 width=%22300%22 height=%22380%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%231F4257%22 font-size=%2218%22 font-weight=%22900%22%3E美人归%3C/text%3E%3C/svg%3E'">
+        </div>
+
+        <h3 class="section-title">主要成分与功效</h3>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-name">调节经期综合症</div>
+            <div class="benefit-desc">
+              双向调节雌激素分泌,改善闭经、痛经、月经不规律等问题,缓解经期腰背酸痛等不适症状。
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">缓解更年期症状</div>
+            <div class="benefit-desc">
+              有效改善潮热、盗汗、心悸、失眠等更年期典型症状,帮助舒缓情绪波动,提升睡眠质量。
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">美容养颜抗衰</div>
+            <div class="benefit-desc">
+              提高雌激素水平,刺激胶原蛋白合成,改善皮肤组织,使肌肤细腻有弹性,延缓衰老进程。
+            </div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">滋养卵巢平衡</div>
+            <div class="benefit-desc">
+              深层营养卵巢,调节体内雌激素分泌平衡,改善脱发断发现象,提高性生活质量。
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">
+        <span class="brand-name">加国甄选</span>:严选 100% 纯天然加拿大本土品牌,用看得见的标准,守护看不见的健康
+      </div>
+    </div>
+  </div>
+</body>
+</html>
