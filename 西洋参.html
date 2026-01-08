@@ -82,11 +82,11 @@
     .variant-option {
       border: 2px solid #ddd;
       border-radius: 8px;
-      padding: 12px 16px;
+      padding: 5px 5px;
       cursor: pointer;
       transition: all 0.3s ease;
       background: white;
-      min-width: 140px;
+      min-width: 100px;
       text-align: center;
     }
     
@@ -952,14 +952,57 @@ const productVariants = [
 // 当前选中的变体
 let currentVariant = productVariants[2]; // 默认选择大林下参
 
-// 初始化页面
-function initializeProduct() {
-  // 渲染变体选项
-  renderVariantOptions();
-  
-  // 设置默认选中
-  selectVariant(currentVariant.id);
+// 新添加
+function getHashValue() {
+  const raw = window.location.hash || '';
+  const val = raw.replace(/^#/, '').trim();
+  if (!val) return '';
+  try { return decodeURIComponent(val); } catch (e) { return val; }
 }
+
+function findVariantByHash(hashVal) {
+  if (!hashVal) return null;
+
+  // 同时支持：id / name / shortName
+  return productVariants.find(v =>
+    v.id === hashVal ||
+    v.name === hashVal ||
+    v.shortName === hashVal
+  ) || null;
+}
+
+function setHashToVariant(variant) {
+  // 用 replaceState：不会造成页面跳动，也不会不断新增历史记录
+  const newHash = `#${encodeURIComponent(variant.name)}`; // 你想要的中文 hash
+  if (window.location.hash !== newHash) {
+    history.replaceState(null, '', newHash);
+  }
+}
+
+
+// 新添加改造后
+function initializeProduct() {
+  renderVariantOptions();
+
+  // 1) 优先从 URL hash 选择品种（支持 #老多节林下参 或 #laolincan）
+  const hashVal = getHashValue();
+  const v = findVariantByHash(hashVal);
+
+  if (v) {
+    selectVariant(v.id, { syncHash: false, scrollToSelector: true });
+  } else {
+    // 2) 没有 hash 或没匹配到，就走默认
+    selectVariant(currentVariant.id, { syncHash: true, scrollToSelector: false });
+  }
+
+  // 3) 监听 hash 改变（例如你在 blog 里点不同锚点）
+  window.addEventListener('hashchange', () => {
+    const hv = getHashValue();
+    const vv = findVariantByHash(hv);
+    if (vv) selectVariant(vv.id, { syncHash: false, scrollToSelector: true });
+  });
+}
+
 
 // 渲染变体选项
 function renderVariantOptions() {
@@ -982,14 +1025,15 @@ function renderVariantOptions() {
   });
 }
 
-// 选择变体
-function selectVariant(variantId) {
-  // 找到对应的变体数据
+// 新添加
+function selectVariant(variantId, options = {}) {
+  const { syncHash = true, scrollToSelector = false } = options;
+
   const variant = productVariants.find(v => v.id === variantId);
   if (!variant) return;
-  
+
   currentVariant = variant;
-  
+
   // 更新选中状态
   document.querySelectorAll('.variant-option').forEach(option => {
     if (option.getAttribute('data-variant-id') === variantId) {
@@ -998,10 +1042,22 @@ function selectVariant(variantId) {
       option.classList.remove('active');
     }
   });
-  
+
   // 更新显示内容
   updateProductDisplay(variant);
+
+  // ✅ 同步 URL hash（默认开启）
+  if (syncHash) {
+    setHashToVariant(variant);
+  }
+
+  // （可选）从 blog 过来时，让选择器滚到可见
+  if (scrollToSelector) {
+    const el = document.querySelector('.product-variant-selector');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
+
 
 // 更新产品显示
 function updateProductDisplay(variant) {
