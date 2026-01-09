@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>特效肝王 - 加国甄选 (A6)</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --primary-brown:#3D2817;
+      --dark-brown:#2A1810;
+      --gold:#C9A961;
+      --deep-gold:#B8973D;
+      --red-accent:#B8392E;
+      --text-dark:#4A3933;
+      --text-light:#6B5B4D;
+    }
+
+    body{
+      font-family:'Noto Sans SC',sans-serif;
+      display:flex;justify-content:center;align-items:center;
+      min-height:100vh;padding:20px;background:#fff;
+    }
+
+    .page{
+      width:105mm;height:148mm;
+      background-image:url('../assets/imgs/bg/background.png');
+      background-size:cover;background-position:center;
+      position:relative;overflow:hidden;
+      box-shadow:0 10px 50px rgba(0,0,0,.2);
+      display:flex;flex-direction:column;
+    }
+
+    .header{padding:5px;text-align:center;flex-shrink:0}
+    .brand-container{display:flex;align-items:center;justify-content:center;gap:12px}
+    .brand-logo{width:32px;height:32px;object-fit:contain}
+    .brand-title{
+      font-family:'Noto Serif SC',serif;
+      font-size:28px;font-weight:900;
+      color:var(--dark-brown);
+      letter-spacing:5px;
+      text-shadow:1px 1px 2px rgba(0,0,0,.1);
+    }
+
+    .content-wrapper{
+      display:grid;
+      grid-template-columns:1fr 2fr;
+      flex:1;
+      min-height:0;
+    }
+
+    .left-section{
+      padding:0 10px 10px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .product-header{text-align:center}
+    .product-name{
+      font-family:'Noto Serif SC',serif;
+      font-size:18px;font-weight:900;color:var(--dark-brown);
+    }
+    .product-spec{
+      display:inline-block;
+      padding:3px 10px;
+      background:linear-gradient(135deg,var(--gold),var(--deep-gold));
+      color:#fff;
+      font-size:7.5px;
+      font-weight:700;
+      border-radius:10px;
+      box-shadow:0 1px 3px rgba(0,0,0,.15);
+    }
+
+    .product-desc{
+      background:rgba(255,255,255,.85);
+      padding:5px;border-radius:6px;
+      border-left:2px solid var(--gold);
+      font-size:6.5px;line-height:1.6;
+      color:var(--text-dark);
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+    }
+
+    .audience-section{
+      background:rgba(255,255,255,.9);
+      padding:5px;border-radius:6px;
+      border:1px solid rgba(201,169,97,.3);
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+    }
+    .audience-title{
+      font-family:'Noto Serif SC',serif;
+      font-size:9px;font-weight:900;
+      text-align:center;
+      margin-bottom:5px;
+      color:var(--dark-brown);
+    }
+    .audience-grid{display:grid;grid-template-columns:1fr;gap:3px}
+    .audience-item{
+      display:flex;align-items:center;gap:3px;
+      font-size:6.5px;color:var(--text-dark);
+      padding:0 4px;background:#fff;border-radius:3px;
+      border-left:1.5px solid var(--gold);
+    }
+    .audience-item::before{
+      content:"✓";color:var(--gold);font-weight:900;font-size:6px;flex-shrink:0;
+    }
+
+    .dosage-box{
+      background:rgba(255,255,255,.9);
+      padding:5px;border-radius:6px;
+      border:1px solid rgba(201,169,97,.4);
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+    }
+    .dosage-title{
+      font-family:'Noto Serif SC',serif;
+      font-size:9px;font-weight:900;
+      color:var(--dark-brown);
+      border-bottom:1px solid var(--gold);
+      margin-bottom:3px;
+    }
+    .dosage-item{
+      display:flex;align-items:flex-start;gap:4px;
+      font-size:6.5px;line-height:1.5;color:var(--text-dark);
+    }
+    .dosage-item::before{
+      content:"▸";color:var(--gold);font-weight:900;font-size:7px;flex-shrink:0;
+    }
+
+    .qrcode-box{
+      background:rgba(255,255,255,.95);
+      padding:5px;border-radius:6px;
+      border:1px solid rgba(201,169,97,.4);
+      box-shadow:0 1px 4px rgba(0,0,0,.08);
+      text-align:center;
+    }
+    .qrcode-title{
+      font-family:'Noto Serif SC',serif;
+      font-size:7.5px;font-weight:900;
+      color:var(--dark-brown);
+      margin-bottom:5px;
+    }
+    .qrcode-image{
+      width:60px;height:60px;margin:0 auto;display:block;
+      border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,.1);
+    }
+    .qrcode-placeholder{
+      width:60px;height:60px;margin:0 auto;
+      background:#fff;border:1px dashed var(--gold);border-radius:4px;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-light);font-size:6px;text-align:center;padding:5px;
+    }
+
+    .slogan-box{
+      background:linear-gradient(135deg,rgba(201,169,97,.2),rgba(184,151,61,.15));
+      padding:7px;border-radius:6px;text-align:center;
+      border:1px solid rgba(201,169,97,.4);
+    }
+    .slogan{
+      font-family:'Noto Serif SC',serif;
+      font-size:9px;font-weight:900;color:var(--dark-brown);
+      line-height:1.4;
+    }
+
+    .right-section{padding:0 10px 10px;overflow-y:auto}
+    .product-image-box{
+      background:#fff;padding:6px;border-radius:6px;
+      border:1px solid rgba(201,169,97,.3);
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+      margin-bottom:8px;
+    }
+    .product-image{width:100%;height:auto;display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+    .section-title{
+      font-family:'Noto Serif SC',serif;
+      font-size:14px;font-weight:900;color:var(--dark-brown);
+      text-align:center;margin-bottom:5px;padding:5px;
+      background:linear-gradient(90deg,transparent,rgba(201,169,97,.25),transparent);
+      border-radius:5px;
+    }
+    .benefits-grid{display:flex;flex-direction:column;gap:3px}
+    .benefit-card{
+      background:rgba(255,255,255,.95);
+      padding:6px 7px;border-radius:5px;
+      border-left:2px solid var(--red-accent);
+      box-shadow:0 1px 3px rgba(0,0,0,.06);
+    }
+    .benefit-name{
+      font-size:8px;font-weight:900;color:var(--red-accent);
+      margin-bottom:3px;display:flex;align-items:center;gap:4px;
+    }
+    .benefit-name::before{content:"🔴";font-size:5.5px}
+    .benefit-desc{font-size:6.5px;color:var(--text-dark);line-height:1.6;padding-left:10px}
+
+    .footer{padding:8px 25px;text-align:center;flex-shrink:0}
+    .footer-text{
+      font-family:'Noto Serif SC',serif;
+      font-size:7px;font-weight:700;color:var(--dark-brown);line-height:1.5;
+    }
+    .brand-name{font-size:8px;font-weight:900;color:var(--red-accent)}
+
+    @media print{
+      body{padding:0}
+      .page{box-shadow:none}
+      .right-section{overflow:visible}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="brand-container">
+        <img class="brand-logo" src="logo.png" alt="Logo">
+        <div class="brand-title">加国甄选</div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="left-section">
+        <div class="product-header">
+          <div class="product-name">特效肝王</div>
+          <div class="product-spec">规格：188 粒 / 瓶</div>
+        </div>
+
+        <div class="product-desc">
+          特效肝王（Milk Thistle 水飞蓟）主打日常护肝与抗氧化管理，帮助应对油腻饮食、应酬饮酒与作息不规律带来的代谢压力；
+          适合作为家庭常备的肝脏健康支持型营养补充。
+        </div>
+
+        <div class="audience-section">
+          <div class="audience-title">适合人群</div>
+          <div class="audience-grid">
+            <div class="audience-item">应酬饮酒、熬夜人群</div>
+            <div class="audience-item">油腻饮食、代谢压力大</div>
+            <div class="audience-item">长期外卖、作息不规律</div>
+            <div class="audience-item">关注肝脏健康管理者</div>
+            <div class="audience-item">易疲劳、精神状态差</div>
+            <div class="audience-item">需要抗氧化日常支持</div>
+            <div class="audience-item">中老年日常养护</div>
+            <div class="audience-item">家庭常备调理款</div>
+          </div>
+        </div>
+
+        <div class="dosage-box">
+          <div class="dosage-title">服用方法</div>
+          <div class="dosage-item">每日 1–2 次，每次 1 粒</div>
+          <div class="dosage-item">建议随餐饭后</div>
+          <div class="dosage-item">温开水送服</div>
+        </div>
+
+        <div class="qrcode-box">
+          <div class="qrcode-title">扫码查看产品详情</div>
+          <img class="qrcode-image" src="qrcodes/特效肝宝qr.webp" alt="特效肝王二维码"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+          <div class="qrcode-placeholder" style="display:none;">在此放置<br>产品链接<br>二维码</div>
+        </div>
+
+        <div class="slogan-box">
+          <div class="slogan">花大钱给医生<br>还是花小钱来养生？</div>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="product-image-box">
+          <img class="product-image"
+               src="file:///D:/chris/Documents/%E5%8A%A0%E5%9B%BD%E7%94%84%E9%80%890104/assets/imgs/product/%E7%89%B9%E6%95%88%E8%82%9D%E7%8E%8B1.webp"
+               alt="特效肝王"
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22160%22%3E%3Crect fill=%22%23F5F1E8%22 width=%22120%22 height=%22160%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%233D2817%22 font-size=%228%22%3E特效肝王%3C/text%3E%3C/svg%3E'">
+        </div>
+
+        <div class="section-title">主要成分与功效</div>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-name">水飞蓟素：护肝抗氧化</div>
+            <div class="benefit-desc">支持肝细胞抗氧化防护，帮助减少氧化压力，日常维护肝脏健康。</div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">代谢支持：应对油腻与应酬</div>
+            <div class="benefit-desc">为饮食油腻、应酬饮酒、熬夜作息等场景提供日常营养支持，帮助维持代谢节奏。</div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">状态管理：更清爽更轻松</div>
+            <div class="benefit-desc">帮助改善疲惫与“沉重感”，维持更稳定的精神与身体表现。</div>
+          </div>
+
+          <div class="benefit-card">
+            <div class="benefit-name">188 粒大容量：更易坚持</div>
+            <div class="benefit-desc">适合长期规律补充与家庭常备，让日常健康管理更省心。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-text">
+        <span class="brand-name">加国甄选：</span> 严选加拿大本土优质营养品，用专业守护日常健康
+      </div>
+    </div>
+  </div>
+</body>
+</html>
