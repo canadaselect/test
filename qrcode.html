@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>URL 转二维码 + 中间 Logo</title>
-  <style>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>URL 转二维码 + 中间 Logo</title>
+    <style>
     body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; padding: 18px; background:#f7f7fb; }
     .wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 16px; grid-template-columns: 1fr; }
     @media (min-width: 920px){ .wrap{ grid-template-columns: 380px 1fr; } }
@@ -21,75 +21,78 @@
     .hint { color:#666; font-size: 12px; line-height: 1.5; margin-top: 10px; }
     .small { font-size:12px; color:#666; }
   </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <h2 style="margin:0 0 8px;">URL → 二维码（中间 Logo）</h2>
-      <div class="small">离线可用（首次加载需要网络拉库；想完全离线见文末）</div>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h2 style="margin:0 0 8px;">URL → 二维码（中间 Logo）</h2>
+        <div class="small">离线可用（首次加载需要网络拉库；想完全离线见文末）</div>
 
-      <label>产品名称（会自动生成URL）</label>
-      <input id="productName" placeholder="例如：皇家礼豹" value="" />
-      
-      <label>完整URL（自动生成）</label>
-      <input id="url" placeholder="https://canadiannaturals.ca/皇家礼豹.html" value="https://canadiannaturals.ca/" readonly style="background:#f5f5f5;color:#666;" />
+        <label>产品名称（会自动生成URL）</label>
+        <input id="productName" placeholder="例如：皇家礼豹" value />
 
-      <div class="row">
-        <div>
-          <label>尺寸（px）</label>
-          <input id="size" type="number" min="160" max="1400" value="420" />
+        <label>完整URL（自动生成）</label>
+        <input id="url" placeholder="https://canadiannaturals.ca/皇家礼豹.html"
+          value="https://canadiannaturals.ca/" readonly
+          style="background:#f5f5f5;color:#666;" />
+
+        <div class="row">
+          <div>
+            <label>尺寸（px）</label>
+            <input id="size" type="number" min="160" max="1400" value="420" />
+          </div>
+          <div>
+            <label>容错等级（越高越能遮 Logo）</label>
+            <select id="ecLevel">
+              <option value="L">L（7%）</option>
+              <option value="M">M（15%）</option>
+              <option value="Q">Q（25%）</option>
+              <option value="H" selected>H（30%）</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label>容错等级（越高越能遮 Logo）</label>
-          <select id="ecLevel">
-            <option value="L">L（7%）</option>
-            <option value="M">M（15%）</option>
-            <option value="Q">Q（25%）</option>
-            <option value="H" selected>H（30%）</option>
-          </select>
+
+        <label>上传 Logo（PNG/SVG/JPG）</label>
+        <input id="logo" type="file" accept="image/*" />
+
+        <label>Logo 占比（建议 18%–26%）</label>
+        <input id="logoSize" type="range" min="10" max="34" value="22" />
+        <div class="small">当前：<span id="logoSizeText">22%</span></div>
+
+        <label>Logo 白底保护边（避免干扰二维码点）</label>
+        <input id="hideBgDots" type="range" min="0" max="14" value="6" />
+        <div class="small">当前：<span id="hideBgDotsText">6px</span></div>
+
+        <label>外边距（静区 quiet zone）</label>
+        <input id="margin" type="number" min="0" max="40" value="12" />
+
+        <div class="btns">
+          <button id="downloadPng">下载 PNG（带文字）</button>
+          <button id="downloadSvg" class="secondary">下载 SVG</button>
+        </div>
+        <div style="margin-top: 8px;">
+          <button id="downloadQrOnly" class="pure">下载纯二维码（正方形）</button>
+        </div>
+
+        <div class="hint">
+          <b>使用说明：</b><br>
+          1. 输入产品名（如"皇家礼豹"），系统会自动生成完整URL<br>
+          2. 容错选 <b>H</b>，Logo 占比别超过 <b>25%</b><br>
+          3. Logo 周围留白（保护边）能明显提高扫码成功率<br>
+          <b>点击"下载纯二维码"会同时下载两张图片：</b>一张带标题和标语，一张纯二维码。
         </div>
       </div>
 
-      <label>上传 Logo（PNG/SVG/JPG）</label>
-      <input id="logo" type="file" accept="image/*" />
-
-      <label>Logo 占比（建议 18%–26%）</label>
-      <input id="logoSize" type="range" min="10" max="34" value="22" />
-      <div class="small">当前：<span id="logoSizeText">22%</span></div>
-
-      <label>Logo 白底保护边（避免干扰二维码点）</label>
-      <input id="hideBgDots" type="range" min="0" max="14" value="6" />
-      <div class="small">当前：<span id="hideBgDotsText">6px</span></div>
-
-      <label>外边距（静区 quiet zone）</label>
-      <input id="margin" type="number" min="0" max="40" value="12" />
-
-      <div class="btns">
-        <button id="downloadPng">下载 PNG（带文字）</button>
-        <button id="downloadSvg" class="secondary">下载 SVG</button>
-      </div>
-      <div style="margin-top: 8px;">
-        <button id="downloadQrOnly" class="pure">下载纯二维码（正方形）</button>
-      </div>
-
-      <div class="hint">
-        <b>使用说明：</b><br>
-        1. 输入产品名（如"皇家礼豹"），系统会自动生成完整URL<br>
-        2. 容错选 <b>H</b>，Logo 占比别超过 <b>25%</b><br>
-        3. Logo 周围留白（保护边）能明显提高扫码成功率<br>
-        <b>点击"下载纯二维码"会同时下载两张图片：</b>一张带标题和标语，一张纯二维码。
+      <div class="card">
+        <div id="qrBox"></div>
       </div>
     </div>
 
-    <div class="card">
-      <div id="qrBox"></div>
-    </div>
-  </div>
+    <!-- 方案A：qr-code-styling（支持中间logo & 下载PNG/SVG） -->
+    <script
+      src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
 
-  <!-- 方案A：qr-code-styling（支持中间logo & 下载PNG/SVG） -->
-  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
-
-  <script>
+    <script>
     const $ = (id) => document.getElementById(id);
 
     const qrBox = $("qrBox");
@@ -438,5 +441,5 @@ $("downloadQrOnly").addEventListener("click", async () => {
 });
 
   </script>
-</body>
+  </body>
 </html>
