@@ -1,556 +1,752 @@
 <!DOCTYPE html>
 
 <html class="no-js" lang="zh-Hans">
-<head>
-<meta charset="utf-8"/>
-<meta content="ie=edge" http-equiv="x-ua-compatible"/>
-<!-- SEO Title（产品页：产品名 + 品牌 + 核心属性） -->
-<title>Nasalyn 鼻炎灵｜加国甄选 Canadian Naturals</title>
-<!-- SEO Description（不写治疗，只写营养与来源） -->
-<meta content="灵（PHAREX Facial Wash，300ml），含柳树皮与茶树油成分，帮助深层清洁、调理油脂与毛孔状态，适合油性/易长肌日常洁面与清爽护理。" name="description"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<!-- Canonical（单品页必须有） -->
-<link href="https://www.canadiannaturals.ca/灵.html" rel="canonical"/>
-<!-- Robots -->
-<meta content="index,follow,max-image-preview:large" name="robots"/>
-<!-- Favicon -->
-<link href="assets/imgs/加国甄选logo.png" rel="icon" type="image/png"/>
-<!-- Open Graph（社交分享） -->
-<meta content="product" property="og:type"/>
-<meta content="zh_CN" property="og:locale"/>
-<meta content="加国甄选 Canadian Naturals" property="og:site_name"/>
-<meta content="灵｜PHAREX Facial Wash" property="og:title"/>
-<meta content="柳树皮×茶树油成分，深层清洁更清爽，帮助调理油脂与毛孔状态，适合油性/易长肌日常使用。" property="og:description"/>
-<meta content="https://www.canadiannaturals.ca/灵.html" property="og:url"/>
-<meta content="https://www.canadiannaturals.ca/assets/imgs/product/鼻炎灵1.webp" property="og:image"/>
-<meta content="1200" property="og:image:width"/>
-<meta content="630" property="og:image:height"/>
-<!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="灵｜PHAREX Facial Wash" name="twitter:title"/>
-<meta content="柳树皮×茶树油成分，深层清洁更清爽，帮助调理油脂与毛孔状态，适合油性/易长肌日常使用。" name="twitter:description"/>
-<meta content="https://www.canadiannaturals.ca/assets/imgs/product/鼻炎灵1.webp" name="twitter:image"/>
-<!-- Structured Data：Product（非常重要） -->
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "灵",
-  "brand": {
-    "@type": "Brand",
-    "name": "Canadian Naturals"
-  },
-  "image": [
-    "https://www.canadiannaturals.ca/assets/imgs/product/鼻炎灵1.webp"
-  ],
-  "description": "灵（PHAREX Facial Wash，300ml），含柳树皮与茶树油成分，帮助深层清洁、调理油脂与毛孔状态，适合油性/易长肌日常洁面与清爽护理。",
-  "sku": "CN-PHAREX-300",
-  "offers": {
-    "@type": "Offer",
-    "url": "https://www.canadiannaturals.ca/灵.html",
-    "priceCurrency": "人民币",
-    "price": "39.99",
-    "availability": "https://schema.org/InStock"
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- SEO Title（只用中文产品名） -->
+    <title>鼻炎灵｜加国甄选 Canadian Naturals</title>
+
+    <!-- SEO Description（不写治疗/感染/治愈，只写舒缓与日常护理） -->
+    <meta
+      name="description"
+      content="鼻炎灵（10ml）草本鼻腔护理膏，含多种植物萃取成分，帮助舒缓鼻腔干燥与不适、保持鼻腔清爽通畅感，适合换季、粉尘或花粉环境下的日常护理使用。" />
+
+    <!-- Canonical（单品页必须与文件名一致） -->
+    <link rel="canonical" href="https://www.canadiannaturals.ca/鼻炎灵.html" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/imgs/加国甄选logo.png" />
+
+    <!-- Open Graph（社交分享） -->
+    <meta property="og:type" content="product" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="加国甄选 Canadian Naturals" />
+    <meta property="og:title" content="鼻炎灵｜加国甄选 Canadian Naturals" />
+    <meta
+      property="og:description"
+      content="草本鼻腔护理膏（10ml），帮助舒缓鼻腔干燥与不适、保持清爽通畅感，适合换季与日常护理。" />
+    <meta property="og:url"
+      content="https://www.canadiannaturals.ca/鼻炎灵.html" />
+    <meta
+      property="og:image"
+      content="assets/imgs/product/鼻炎灵1.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="鼻炎灵｜加国甄选 Canadian Naturals" />
+    <meta
+      name="twitter:description"
+      content="草本鼻腔护理膏（10ml），帮助舒缓鼻腔干燥与不适、保持清爽通畅感，适合换季与日常护理。" />
+    <meta
+      name="twitter:image"
+      content="assets/imgs/product/鼻炎灵1.webp" />
+
+    <!-- Structured Data：Product（不写治愈/治疗；币种用 CNY） -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "鼻炎灵",
+    "brand": {
+      "@type": "Brand",
+      "name": "Canadian Naturals"
+    },
+    "image": [
+      "assets/imgs/product/鼻炎灵1.webp"
+    ],
+    "description": "鼻炎灵（10ml）草本鼻腔护理膏，含多种植物萃取成分，帮助舒缓鼻腔干燥与不适、保持鼻腔清爽通畅感，适合换季、粉尘或花粉环境下的日常护理使用。",
+    "sku": "CN-BIYANLING-10ML",
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.canadiannaturals.ca/鼻炎灵.html",
+      "priceCurrency": "CNY",
+      "price": "299",
+      "availability": "https://schema.org/InStock"
+    }
   }
-}</script>
-<!-- CSS -->
-<link href="assets/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="assets/css/meanmenu.min.css" rel="stylesheet"/>
-<link href="assets/css/animate.css" rel="stylesheet"/>
-<link href="assets/css/swiper.min.css" rel="stylesheet"/>
-<link href="assets/css/slick.css" rel="stylesheet"/>
-<link href="assets/css/magnific-popup.css" rel="stylesheet"/>
-<link href="assets/css/fontawesome-pro.css" rel="stylesheet"/>
-<link href="assets/css/spacing.css" rel="stylesheet"/>
-<link href="assets/css/pharmecy.css" rel="stylesheet"/>
-</head>
-<body>
-<!-- preloader start -->
-<div class="preloader" id="preloader">
-<div class="preloader-inner">
-<div class="preloader-brand">
-<div class="brand-title">加国甄选</div>
-<div class="brand-sub">
-<div>Canadian Naturals</div>
-<div>100% 纯天然 · 加拿大制造</div>
-</div>
-</div>
-</div>
-</div>
-<!-- preloader end -->
-<!-- Back to top start -->
-<div class="backtotop-wrap cursor-pointer">
-<svg class="backtotop-circle svg-content" height="100%" viewbox="-1 -1 102 102" width="100%">
-<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
-</svg>
-</div>
-<!-- Back to top end -->
-<!-- Offcanvas area start -->
-<div class="fix">
-<div class="offcanvas__info">
-<div class="offcanvas__wrapper">
-<div class="offcanvas__content">
-<div class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
-<div class="offcanvas__logo">
-<a href="home.html">
-<img alt="logo not found" src="assets/imgs/logo/加国甄选白.svg"/>
-</a>
-</div>
-<div class="offcanvas__close">
-<button>
-<i class="fal fa-times"></i>
-</button>
-</div>
-</div>
-<div class="mobile-menu fix mb-40"></div>
-<div class="offcanvas__contact mt-30 mb-20">
-<h4>联系我们</h4>
-<ul>
-<li class="d-flex align-items-center">
-<div class="offcanvas__contact-icon mr-15">
-<i class="fal fa-map-marker-alt"></i>
-</div>
-<div class="offcanvas__contact-text">
-<a href="https://maps.app.goo.gl/AXaG8e7DiYkJaH4f6" target="_blank">
-                           加拿大安大略省多伦多市</a>
-</div>
-</li>
-<li class="d-flex align-items-center">
-<div class="offcanvas__contact-icon mr-15">
-<i class="far fa-phone"></i>
-</div>
-<div class="offcanvas__contact-text">
-<a href="tel:+12895879988">1(289)587-9988</a>
-</div>
-</li>
-<li class="d-flex align-items-center">
-<div class="offcanvas__contact-icon mr-15">
-<i class="fal fa-envelope"></i>
-</div>
-<div class="offcanvas__contact-text">
-<a href="mailto:info@canadiannaturals.ca">info@canadiannaturals.ca</a>
-</div>
-</li>
-</ul>
-</div>
-<div class="offcanvas__social">
-<ul>
-<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-<li><a href="#"><i class="fab fa-linkedin"></i></a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="offcanvas__overlay"></div>
-<div class="offcanvas__overlay-white"></div>
-<!-- Offcanvas area end -->
-<!-- Header area start -->
-<header>
-<div class="header">
-<div class="header-top-area">
-<div class="header-layout-4">
-<div class="header-to-main d-none d-sm-flex">
-<div class="link-text">
-<span><img alt="" src="assets/imgs/icons/call.png"/></span>
-<a href="tel:+12895879988">1(289)587-9988</a>
-</div>
-<div class="header-top-notice d-none d-lg-block">
-<p>加拿大顶级保健品 <span class="text-color-2">100%纯天然</span> 加拿大制造</p>
-</div>
-<div class="tp-header-top-menu d-flex align-items-center justify-content-end">
-<div class="header-lang-item header-lang">
-<span class="header-lang-toggle" id="header-lang-toggle">中文</span>
-<ul class="">
-<li><a href="#">English</a></li>
-</ul>
-</div>
-<div class="header-lang-item tp-header-currency">
-<span class="header-currency-toggle" id="header-currency-toggle">人民币</span>
-<ul>
-<li><a href="#">RMB</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="header-layout-4 header-bottom">
-<div class="header-4" id="header-sticky">
-<div class="mega-menu-wrapper">
-<div class="header-main-4">
-<div class="header-left">
-<div class="header-logo">
-<a href="home.html">
-<img alt="logo not found" src="assets/imgs/logo/加国甄选.svg"/>
-</a>
-</div>
-<div class="mean__menu-wrapper d-none d-lg-block">
-<div class="main-menu">
-<nav id="mobile-menu">
-<ul>
-<li class="has-dropdown">
-<a href="home.html">甄选主页</a>
-</li>
-<li>
-<a href="about.html">关于我们</a>
-</li>
-<li class="has-dropdown">
-<a href="products.html">纯天然保健品</a>
-</li>
-<li class="has-dropdown">
-<a href="blog.html">养生时讯</a>
-</li>
-<li>
-<a href="contact.html">联系我们</a>
-</li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-<div class="header-right d-inline-flex align-items-center justify-content-end">
-<div class="header-humbager ml-30">
-<a class="sidebar__toggle" href="javascript:void(0)">
-<div class="bar-icon-2">
-<span></span>
-<span></span>
-<span></span>
-</div>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</header>
-<!-- Header area end -->
-<!-- Body main wrapper start -->
-<main>
-<!-- Breadcrumb area start -->
-<div class="breadcrumb__area theme-bg-1 p-relative z-index-11 pt-95 pb-95">
-<div class="breadcrumb__thumb" data-background="assets/imgs/bg/breadcrumb-pharmacy.webp"></div>
-<div class="container">
-<div class="row justify-content-center">
-<div class="col-xxl-12">
-<div class="breadcrumb__wrapper text-center">
-<h2 class="breadcrumb__title">纯天然护肤</h2>
-<div class="breadcrumb__menu">
-<nav>
-<ul>
-<li><span><a href="home.html">甄选首页</a></span></li>
-<li><span><a href="products.html">纯天然护肤</a></span></li>
-<li><span>Nasalyn 鼻炎灵</span></li>
-</ul>
-</nav>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Breadcrumb area end -->
-<!-- Product details area start -->
-<div class="product__details-area section-space-medium">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-xxl-6 col-lg-6">
-<div class="product__details-thumb-wrapper d-sm-flex align-items-start mr-50">
-<div class="product__details-thumb-tab mr-20">
-<nav>
-<div class="nav nav-tabs flex-nowrap flex-sm-column" id="nav-tab" role="tablist">
-<button aria-controls="img-1" aria-selected="true" class="nav-link active" data-bs-target="#img-1" data-bs-toggle="tab" id="img-1-tab" role="tab" type="button">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵1.webp"/>
-</button>
-<button aria-controls="img-2" aria-selected="false" class="nav-link" data-bs-target="#img-2" data-bs-toggle="tab" id="img-2-tab" role="tab" type="button">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵2.webp"/>
-</button>
-<button aria-controls="img-3" aria-selected="false" class="nav-link" data-bs-target="#img-3" data-bs-toggle="tab" id="img-3-tab" role="tab" type="button">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵3.webp"/>
-</button>
-</div>
-</nav>
-</div>
-<div class="product__details-thumb-tab-content">
-<div class="tab-content" id="productthumbcontent">
-<div aria-labelledby="img-1-tab" class="tab-pane fade show active" id="img-1" role="tabpanel">
-<div class="product__details-thumb-big w-img">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵1.webp"/>
-</div>
-</div>
-<div aria-labelledby="img-2-tab" class="tab-pane fade" id="img-2" role="tabpanel">
-<div class="product__details-thumb-big w-img">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵2.webp"/>
-</div>
-</div>
-<div aria-labelledby="img-3-tab" class="tab-pane fade" id="img-3" role="tabpanel">
-<div class="product__details-thumb-big w-img">
-<img alt="Nasalyn 鼻炎灵" src="assets/imgs/product/鼻炎灵3.webp"/>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="col-xxl-6 col-lg-6">
-<div class="product__details-content pr-80">
-<div class="product__details-top d-sm-flex align-items-center mb-15">
-<div class="product__details-tag mr-10">
-<a href="#">鼻部护理</a>
-</div>
-<div class="product__details-rating mr-10">
-<a href="#"><i class="fa-solid fa-star"></i></a>
-<a href="#"><i class="fa-solid fa-star"></i></a>
-<a href="#"><i class="fa-solid fa-star"></i></a>
-<a href="#"><i class="fa-solid fa-star"></i></a>
-<a href="#"><i class="fa-solid fa-star"></i></a>
-</div>
-<div class="product__details-review-count">
-<a href="#">舒缓通畅</a>
-</div>
-</div>
-<h3 class="product__details-title">LANLAY Vita-X Nasalyn 鼻炎灵</h3>
-<p class="product__details-subtitle mb-20" style="color: #666; font-size: 15px;">LANLAY Vita-X Nasalyn 10ml</p>
-<div class="product__details-price mb-20">
-<span class="old-price">$79.99</span>
-<span class="new-price">$79.99</span>
-</div>
-<div class="mb-20" style="color: #666;">
-10ml/ 瓶</p>
-</div>
-<p class="mb-25">Nasalyn 鼻炎灵 为便携式草本植萃鼻腔护理产品（10ml / 瓶），强调<strong>舒缓鼻部不适 + 日常通畅管理</strong>理念。适用于因换季、粉尘、冷空气、感冒或过敏刺激导致的鼻塞、鼻痒、流鼻涕、鼻腔干涩等不适状态管理。配方以多种草本成分复配，气味清爽不刺鼻，使用后可帮助提升鼻腔清爽度与呼吸顺畅感。小容量便携，适合随身放包，居家、通勤、旅行都方便。<br><br><span style='color:#666;'>*提示：本页面为产品介绍，具体成分、适用范围与用法请以实物外包装说明为准。</span><div style="margin-top:14px; color:#9aa0a6; font-size:13px; line-height:1.7;">温馨提示：请以外包装说明为准；使用过程中如出现明显刺激或不适，建议停止使用并咨询医生/药师。</div><div style="margin-top:14px; color:#9aa0a6; font-size:13px; line-height:1.7;">温馨提示：鼻部护理产品不等同于处方药；如症状持续、加重或伴随发热/剧痛等情况，请及时咨询医生或药师。</div></p>
-<div class="product__details-action mb-35">
-<div class="product__add-cart">
-<a class="fill-btn cart-btn" href="contact.html">
-<span class="fill-btn-inner">
-<span class="fill-btn-normal">联系我们</span>
-<span class="fill-btn-hover">联系我们</span>
-</span>
-</a>
-</div>
-<div class="product__add-wish">
-<a class="product__add-wish-btn" href="#"><i class="fa-solid fa-heart"></i></a>
-</div>
-</div>
-<div class="product__details-meta mb-20">
-<div class="categories"><span>分类：</span> <a href="#">鼻部护理</a>, <a href="#">草本舒缓</a>, <a href="#">家庭常备</a></div>
-<div class="tag"><span>标签：</span> <a href="#">鼻塞管理</a>, <a href="#">换季过敏</a>, <a href="#">舒缓通畅</a>
-</div>
-<div class="product__details-share">
-<span>分享：</span>
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-brands fa-twitter"></i></a>
-<a href="#"><i class="fa-brands fa-weixin"></i></a>
-<a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-</div>
-</div>
-</div>
-</div>
-<div class="product__details-additional-info section-space-medium-top">
-<div class="row">
-<div class="col-xxl-3 col-xl-4 col-lg-4">
-<div class="product__details-more-tab mr-15">
-<nav>
-<div class="nav nav-tabs flex-column" id="productmoretab" role="tablist">
-<button aria-controls="nav-description" aria-selected="true" class="nav-link active" data-bs-target="#nav-description" data-bs-toggle="tab" id="nav-description-tab" role="tab" type="button">产品详情</button>
-<button aria-controls="nav-additional" aria-selected="false" class="nav-link" data-bs-target="#nav-additional" data-bs-toggle="tab" id="nav-additional-tab" role="tab" type="button">产品信息</button>
-<button aria-controls="nav-usage" aria-selected="false" class="nav-link" data-bs-target="#nav-usage" data-bs-toggle="tab" id="nav-usage-tab" role="tab" type="button">使用方法</button>
-</div>
-</nav>
-</div>
-</div>
-<div class="col-xxl-9 col-xl-8 col-lg-8">
-<div class="product__details-more-tab-content">
-<div class="tab-content" id="productmorecontent">
-<div aria-labelledby="nav-description-tab" class="tab-pane fade show active" id="nav-description" role="tabpanel">
-<div class="product__details-des"><h4 class="mb-20">奇效通鼻 · 鼻腔内护理</h4>
-<p style="margin-bottom:18px; line-height:1.9; color:#444;">PHAREX 鼻炎护理配方
-针对常见过敏性鼻炎与环境刺激型鼻部不适，通过温和清洁与植物活性成分协同作用，帮助改善鼻腔周围环境，减轻鼻部炎症反应与堵塞不适。
-本品以柳树皮提取物与茶树精油为核心，侧重于降低刺激源残留、缓解黏膜压力、改善鼻腔通畅度，适合反复鼻塞、流涕、闷胀人群作为日常调理型使用。</p>
-<div class="mb-25">
-<h5 style="color:#c8102e;margin-bottom:10px;">🔴 缓解鼻腔炎症与不适反应</h5>
-<p>柳树皮中天然水杨苷成分可参与炎症反应调节，帮助减轻鼻腔及鼻翼区域因过敏或刺激引发的红肿、胀感与不适。</p>
-</div>
+  </script>
 
-<div class="mb-25">
-<h5 style="color:#c8102e;margin-bottom:10px;">🔴 减少过敏原与刺激物残留</h5>
-<p>茶树油成分带来的清凉感可在使用过程中帮助缓解鼻部闷胀压力，提升呼吸通畅感受，尤其适合季节交替或空气干燥环境。</p>
-</div>
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/swiper.min.css" />
+    <link rel="stylesheet" href="assets/css/slick.css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+    <link rel="stylesheet" href="assets/css/fontawesome-pro.css" />
+    <link rel="stylesheet" href="assets/css/spacing.css" />
+    <link rel="stylesheet" href="assets/css/pharmecy.css" />
+  </head>
 
-<div class="mb-25">
-<h5 style="color:#c8102e;margin-bottom:10px;">🔴 支持鼻腔黏膜环境稳定</h5>
-<p>温和配方在清洁的同时，避免对鼻部皮肤与黏膜产生二次刺激，适合作为长期鼻炎护理中的辅助调理产品。</p>
-</div>
+  <body>
+    <!-- preloader start -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-inner">
+        <div class="preloader-brand">
+          <div class="brand-title">加国甄选</div>
+          <div class="brand-sub">
+            <div>Canadian Naturals</div>
+            <div>100% 纯天然 · 加拿大制造</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- preloader end -->
+    <!-- Back to top start -->
+    <div class="backtotop-wrap cursor-pointer">
+      <svg class="backtotop-circle svg-content" height="100%"
+        viewbox="-1 -1 102 102" width="100%">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"></path>
+      </svg>
+    </div>
+    <!-- Back to top end -->
+    <!-- Offcanvas area start -->
+    <div class="fix">
+      <div class="offcanvas__info">
+        <div class="offcanvas__wrapper">
+          <div class="offcanvas__content">
+            <div
+              class="offcanvas__top mb-40 d-flex justify-content-between align-items-center">
+              <div class="offcanvas__logo">
+                <a href="home.html">
+                  <img alt="logo not found" src="assets/imgs/logo/加国甄选白.svg" />
+                </a>
+              </div>
+              <div class="offcanvas__close">
+                <button>
+                  <i class="fal fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="mobile-menu fix mb-40"></div>
+            <div class="offcanvas__contact mt-30 mb-20">
+              <h4>联系我们</h4>
+              <ul>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="fal fa-map-marker-alt"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a href="https://maps.app.goo.gl/AXaG8e7DiYkJaH4f6"
+                      target="_blank">
+                      加拿大安大略省多伦多市</a>
+                  </div>
+                </li>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="far fa-phone"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a href="tel:+12895879988">1(289)587-9988</a>
+                  </div>
+                </li>
+                <li class="d-flex align-items-center">
+                  <div class="offcanvas__contact-icon mr-15">
+                    <i class="fal fa-envelope"></i>
+                  </div>
+                  <div class="offcanvas__contact-text">
+                    <a
+                      href="mailto:info@canadiannaturals.ca">info@canadiannaturals.ca</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="offcanvas__social">
+              <ul>
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="offcanvas__overlay"></div>
+    <div class="offcanvas__overlay-white"></div>
+    <!-- Offcanvas area end -->
+    <!-- Header area start -->
+    <header>
+      <div class="header">
+        <div class="header-top-area">
+          <div class="header-layout-4">
+            <div class="header-to-main d-none d-sm-flex">
+              <div class="link-text">
+                <span><img alt src="assets/imgs/icons/call.png" /></span>
+                <a href="tel:+12895879988">1(289)587-9988</a>
+              </div>
+              <div class="header-top-notice d-none d-lg-block">
+                <p>加拿大顶级保健品 <span class="text-color-2">100%纯天然</span> 加拿大制造</p>
+              </div>
+              <div
+                class="tp-header-top-menu d-flex align-items-center justify-content-end">
+                <div class="header-lang-item header-lang">
+                  <span class="header-lang-toggle"
+                    id="header-lang-toggle">中文</span>
+                  <ul class>
+                    <li><a href="#">English</a></li>
+                  </ul>
+                </div>
+                <div class="header-lang-item tp-header-currency">
+                  <span class="header-currency-toggle"
+                    id="header-currency-toggle">CNY</span>
+                  <ul>
+                    <li><a href="#">RMB</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-layout-4 header-bottom">
+          <div class="header-4" id="header-sticky">
+            <div class="mega-menu-wrapper">
+              <div class="header-main-4">
+                <div class="header-left">
+                  <div class="header-logo">
+                    <a href="home.html">
+                      <img alt="logo not found"
+                        src="assets/imgs/logo/加国甄选.svg" />
+                    </a>
+                  </div>
+                  <div class="mean__menu-wrapper d-none d-lg-block">
+                    <div class="main-menu">
+                      <nav id="mobile-menu">
+                        <ul>
+                          <li class="has-dropdown">
+                            <a href="home.html">甄选主页</a>
+                          </li>
+                          <li>
+                            <a href="about.html">关于我们</a>
+                          </li>
+                          <li class="has-dropdown">
+                            <a href="products.html">纯天然保健品</a>
+                          </li>
+                          <li class="has-dropdown">
+                            <a href="blog.html">养生时讯</a>
+                          </li>
+                          <li>
+                            <a href="contact.html">联系我们</a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="header-right d-inline-flex align-items-center justify-content-end">
+                  <div class="header-humbager ml-30">
+                    <a class="sidebar__toggle" href="javascript:void(0)">
+                      <div class="bar-icon-2">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Header area end -->
+    <!-- Body main wrapper start -->
+    <main>
+      <!-- Breadcrumb area start -->
+      <div
+        class="breadcrumb__area theme-bg-1 p-relative z-index-11 pt-95 pb-95">
+        <div class="breadcrumb__thumb"
+          data-background="assets/imgs/bg/breadcrumb-pharmacy.webp"></div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xxl-12">
+              <div class="breadcrumb__wrapper text-center">
+                <h2 class="breadcrumb__title">纯天然护肤</h2>
+                <div class="breadcrumb__menu">
+                  <nav>
+                    <ul>
+                      <li><span><a href="home.html">甄选首页</a></span></li>
+                      <li><span><a href="products.html">纯天然护肤</a></span></li>
+                      <li><span>加国甄选鼻炎灵</span></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Breadcrumb area end -->
 
-<div class="mb-25">
-<h5 style="color:#c8102e;margin-bottom:10px;">🔴 改善鼻塞与闷胀感</h5>
-<p>茶树油成分带来的清凉感可在使用过程中帮助缓解鼻部闷胀压力，提升呼吸通畅感受，尤其适合季节交替或空气干燥环境。</p>
-</div>
-<h4 class="mb-20 mt-40">适合人群</h4><ul style="list-style: none; padding-left: 0;"><li style="margin-bottom: 10px;">✓ 鼻塞不通畅</li><li style="margin-bottom: 10px;">✓ 鼻痒打喷嚏</li><li style="margin-bottom: 10px;">✓ 流鼻涕不适</li><li style="margin-bottom: 10px;">✓ 换季过敏</li><li style="margin-bottom: 10px;">✓ 空调干燥</li><li style="margin-bottom: 10px;">✓ 烟尘刺激</li><li style="margin-bottom: 10px;">✓ 鼻窦不适</li><li style="margin-bottom: 10px;">✓ 旅行随身</li></ul>
-<div class="mt-40" style="background:#f8f8f8;padding:20px;border-left:4px solid #c8102e;">
-<h5 class="mb-15">产品总结</h5>
-<p style="margin-bottom:0;">作为鼻炎调理型产品，可在早晚清洁时使用，重点清洁鼻翼及鼻周区域。
-适合与其他鼻炎治疗方案配合使用，不含激素与抗生素。</p>
-</div>
-<p class="mt-25" style="font-size:12px;color:#999;">
-              ⚠️ 免责声明：本产品为日常清洁护理用品，不用于诊断、治疗、治愈或预防任何疾病。如有特殊肤质、正在使用处方外用药、孕哺期或对成分敏感，请在使用前咨询专业人士。</p>
-</div>
-</div>
-<div aria-labelledby="nav-additional-tab" class="tab-pane fade" id="nav-additional" role="tabpanel">
-<div class="product__details-info">
-<ul>
-<li><h4>产品名称</h4><span>Nasalyn 鼻炎灵</span></li>
+      <!-- Product details area start -->
+      <div class="product__details-area section-space-medium">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-xxl-6 col-lg-6">
+              <div
+                class="product__details-thumb-wrapper d-sm-flex align-items-start mr-50">
+                <div class="product__details-thumb-tab mr-20">
+                  <nav>
+                    <div class="nav nav-tabs flex-nowrap flex-sm-column"
+                      id="nav-tab" role="tablist">
+                      <button
+                        aria-controls="img-1"
+                        aria-selected="true"
+                        class="nav-link active"
+                        data-bs-target="#img-1"
+                        data-bs-toggle="tab"
+                        id="img-1-tab"
+                        role="tab"
+                        type="button">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵1.webp" />
+                      </button>
 
-<li><h4>英文名称</h4><span>LANLAY Vita-X Nasalyn</span></li>
+                      <button
+                        aria-controls="img-2"
+                        aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#img-2"
+                        data-bs-toggle="tab"
+                        id="img-2-tab"
+                        role="tab"
+                        type="button">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵2.webp" />
+                      </button>
 
-<li><h4>价格</h4><span>人民币 $39.99</span></li>
+                      <button
+                        aria-controls="img-3"
+                        aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#img-3"
+                        data-bs-toggle="tab"
+                        id="img-3-tab"
+                        role="tab"
+                        type="button">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵3.webp" />
+                      </button>
+                    </div>
+                  </nav>
+                </div>
 
-<li><h4>类型</h4><span>鼻腔护理液（以实物为准）</span></li>
+                <div class="product__details-thumb-tab-content">
+                  <div class="tab-content" id="productthumbcontent">
+                    <div aria-labelledby="img-1-tab"
+                      class="tab-pane fade show active" id="img-1"
+                      role="tabpanel">
+                      <div class="product__details-thumb-big w-img">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵1.webp" />
+                      </div>
+                    </div>
 
-<li><h4>主要成分</h4><span>辛夷、丁香、苍耳子、薄荷、川芎、升麻等草本植萃（以实物成分表为准）</span></li>
+                    <div aria-labelledby="img-2-tab" class="tab-pane fade"
+                      id="img-2" role="tabpanel">
+                      <div class="product__details-thumb-big w-img">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵2.webp" />
+                      </div>
+                    </div>
 
-10ml/ 瓶</span></li>
+                    <div aria-labelledby="img-3-tab" class="tab-pane fade"
+                      id="img-3" role="tabpanel">
+                      <div class="product__details-thumb-big w-img">
+                        <img
+                          alt="加国甄选鼻炎灵"
+                          src="assets/imgs/product/鼻炎灵3.webp" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<li><h4>产地</h4><span>加拿大（以实物标签为准）</span></li>
+            <div class="col-xxl-6 col-lg-6">
+              <div class="product__details-content pr-80">
+                <div
+                  class="product__details-top d-sm-flex align-items-center mb-15">
+                  <div class="product__details-tag mr-10">
+                    <a href="#">鼻部护理</a>
+                  </div>
+                  <div class="product__details-rating mr-10" aria-label="评分：5星">
+                    <a href="#"><i class="fa-solid fa-star"></i></a>
+                    <a href="#"><i class="fa-solid fa-star"></i></a>
+                    <a href="#"><i class="fa-solid fa-star"></i></a>
+                    <a href="#"><i class="fa-solid fa-star"></i></a>
+                    <a href="#"><i class="fa-solid fa-star"></i></a>
+                  </div>
+                  <div class="product__details-review-count">
+                    <a href="#">清爽通畅感</a>
+                  </div>
+                </div>
 
-<li><h4>特点</h4><span>舒缓通畅 · 草本复配 · 奇效通鼻</span></li>
+                <h3 class="product__details-title">鼻炎灵 LANLAY Vita-X
+                  Nasalyn</h3>
+                <p class="product__details-subtitle mb-20"
+                  style="color:#666; font-size:15px;">
+                  LANLAY Vita-X Nasalyn 10ml
+                </p>
 
-<li><h4>储存方式</h4><span>阴凉干燥处保存，避免阳光直射</span></li>
-</ul>
-</div>
-</div>
-<div aria-labelledby="nav-usage-tab" class="tab-pane fade" id="nav-usage" role="tabpanel">
-<div class="product__details-des">
-<h4 class="mb-20">使用方法（以瓶身标注为准）</h4>
-<div style="background:#f0f8ff;padding:25px;border-radius:8px;margin-bottom:25px;">
-<p style="font-size:16px;margin-bottom:15px;"><strong>使用方法：</strong></p>
-<p style="font-size:15px;line-height:1.8;margin-bottom:0;">取适量本品于掌心或者于棉签上，加水轻柔起泡后，重点清洁鼻翼、鼻前庭及鼻周区域，以指腹轻柔按摩 20–30 秒，帮助带走鼻孔内部的堵塞。每天建议使用次数不低于两次。
+                <div class="product__details-price mb-20">
+                  <span class="old-price">339</span>
+                  <span class="new-price">299</span>
+                </div>
 
-使用过程中避免产品进入眼睛或是嘴内</p>
-</div>
-<h5 class="mb-15">使用小贴士</h5>
-<ul style="line-height:2;"><li>建议早晚使用，在鼻炎高发季节或空气干燥、粉尘较多环境中可坚持连续使用</li><li>可作为鼻炎日常护理与治疗方案中的辅助调理产品，帮助维持鼻部周围清洁与舒适状态</li><li>敏感体质或鼻部皮肤较薄者，建议首次使用前进行局部测试</li><li>避免与强刺激性清洁或去角质产品同时使用于鼻部区域</li></ul>如出现持续不适、灼热或异常反应，请停止使用并咨询专业人士
-<h5 class="mb-15 mt-30">保存建议</h5>
-<div style="background:#fff9e6;padding:20px;border-radius:8px;margin-bottom:25px;">
-<p style="margin-bottom:0;">置于阴凉干燥处，避免阳光直射；用后拧紧瓶盖，远离儿童可触及处。</p>
-</div>
-<div class="mt-30" style="background:#ffe5e5;padding:20px;border-radius:10px;border:2px solid #c8102e;font-size:16px; box-shadow: 0 8px 22px rgba(200,16,46,0.10);"><p style="margin-bottom:0; font-size:16px; font-weight:900; line-height:1.95; color:#c8102e;"><strong>⚠️ 重要提示：</strong>仅限外用，避免接触眼睛与破损皮肤；如不慎入眼，请立即用清水冲洗。若出现红肿、刺痛、持续干燥等不适，请停用并咨询专业人士。</p></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Product details area end -->
-</main>
-<!-- Body main wrapper end -->
-<!-- Footer area start -->
-<footer class="footer-bg">
-<div class="footer-area section-space-medium">
-<div class="footer-style-4">
-<div class="container">
-<div class="footer-grid-3">
-<div class="footer-widget-4">
-<div class="footer-logo mb-35">
-<a href="home.html"><img alt="加国甄选" src="assets/imgs/logo/加国甄选白.svg"/></a>
-</div>
-<p>严选加拿大本土品牌，用看得见的标准，守护看不见的健康</p>
-<div class="theme-social">
-<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-<a href="#"><i class="fa-brands fa-twitter"></i></a>
-<a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
-<a href="#"><i class="fa-brands fa-instagram"></i></a>
-</div>
-</div>
-<div class="footer-widget-4">
-<div class="footer-widget-title">
-<h4>我们服务</h4>
-</div>
-<div class="footer-link">
-<ul>
-<li><a href="about.html">关于我们</a></li>
-<li><a href="coming-soon.html">代理合作</a></li>
-<li><a href="coming-soon.html">运输须知</a></li>
-<li><a href="coming-soon.html">免责声明</a></li>
-<li><a href="coming-soon.html">隐私条款</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-widget-4">
-<div class="footer-widget-title">
-<h4>公司详情</h4>
-</div>
-<div class="footer-link">
-<ul>
-<li><a href="home.html">甄选首页</a></li>
-<li><a href="about.html">关于我们</a></li>
-<li><a href="products.html">纯天然保健品</a></li>
-<li><a href="blog.html">养生时讯</a></li>
-<li><a href="contact.html">联系我们</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-widget-4">
-<div class="footer-widget-title">
-<h4>我们接受</h4>
-</div>
-<div class="footer-payment">
-<div class="footer-payment-item">
-<div class="footer-payment-thumb">
-<a href="https://www.mastercard.ca" rel="noopener" target="_blank">
-<img alt="Mastercard" src="assets/imgs/icons/maser.png"/>
-</a>
-</div>
-</div>
-<div class="footer-payment-item">
-<div class="footer-payment-thumb">
-<a href="https://www.paypal.com/ca/home" rel="noopener" target="_blank">
-<img alt="PayPal" src="assets/imgs/icons/paypal.png"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="container">
-<div class="footer-copyright-area b-t">
-<div class="footer-copyright-wrapper">
-<div class="footer-copyright-text">
-<p class="mb-0">© All Copyright 2025 by <a href="#" target="_blank">加国甄选</a></p>
-</div>
-<div class="footer-conditions">
-<ul>
-<li><a href="coming-soon.html">Terms &amp; Condition</a></li>
-<li><a href="coming-soon.html">Privacy Policy</a></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</footer>
-<!-- Footer area end -->
-<!-- JS here -->
-<script src="assets/js/jquery-3.6.0.min.js"></script>
-<script src="assets/js/waypoints.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/meanmenu.min.js"></script>
-<script src="assets/js/swiper.min.js"></script>
-<script src="assets/js/slick.min.js"></script>
-<script src="assets/js/magnific-popup.min.js"></script>
-<script src="assets/js/counterup.js"></script>
-<script src="assets/js/wow.js"></script>
-<script src="assets/js/ajax-form.js"></script>
-<script src="assets/js/beforeafter.jquery-1.0.0.min.js"></script>
-<script src="assets/js/main.js"></script>
-</body>
+                <p class="mb-20" style="color:#666;">10ml / 瓶</p>
+
+                <p class="mb-25">
+                  鼻炎灵 Nasalyn 为便携式草本植萃鼻腔护理产品（10ml /
+                  瓶），主打<strong>日常清爽护理与通畅感管理</strong>。
+                  适用于换季、粉尘、冷空气或干燥环境下出现的鼻部闷堵感、鼻痒、流涕等不适时的日常护理使用。
+                  草本复配气味清爽，使用后可帮助提升鼻腔清爽度与呼吸顺畅感。小容量便携，居家、通勤、旅行都方便。
+                </p>
+
+                <div
+                  style="margin-top:14px; background:#f6f7f8; color:#6b7280; font-size:13px; line-height:1.7; padding:12px 14px; border-radius:10px;">
+                  温馨提示：本页面为产品介绍，具体成分、适用范围与用法请以实物外包装说明为准。
+                </div>
+                <div
+                  style="margin-top:10px; background:#f6f7f8; color:#6b7280; font-size:13px; line-height:1.7; padding:12px 14px; border-radius:10px;">
+                  温馨提示：使用过程中如出现明显刺激或不适，建议停止使用并咨询医生/药师。
+                </div>
+                <div
+                  style="margin-top:10px; background:#f6f7f8; color:#6b7280; font-size:13px; line-height:1.7; padding:12px 14px; border-radius:10px;">
+                  温馨提示：如不适持续、加重或伴随明显发热/剧痛等情况，请及时咨询医生或药师。
+                </div>
+
+                <div class="product__details-action mb-35"
+                  style="margin-top:18px;">
+                  <div class="product__add-cart">
+                    <a class="fill-btn cart-btn" href="contact.html">
+                      <span class="fill-btn-inner">
+                        <span class="fill-btn-normal">联系我们</span>
+                        <span class="fill-btn-hover">联系我们</span>
+                      </span>
+                    </a>
+                  </div>
+                  <div class="product__add-wish">
+                    <a class="product__add-wish-btn" href="#"><i
+                        class="fa-solid fa-heart"></i></a>
+                  </div>
+                </div>
+
+                <div class="product__details-meta mb-20">
+                  <div class="categories">
+                    <span>分类：</span>
+                    <a href="#">鼻部护理</a>, <a href="#">草本舒缓</a>, <a
+                      href="#">家庭常备</a>
+                  </div>
+                  <div class="tag">
+                    <span>标签：</span>
+                    <a href="#">通勤随身</a>, <a href="#">换季护理</a>, <a
+                      href="#">清爽通畅</a>
+                  </div>
+                  <div class="product__details-share">
+                    <span>分享：</span>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-weixin"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="product__details-additional-info section-space-medium-top">
+            <div class="row">
+              <div class="col-xxl-3 col-xl-4 col-lg-4">
+                <div class="product__details-more-tab mr-15">
+                  <nav>
+                    <div class="nav nav-tabs flex-column" id="productmoretab"
+                      role="tablist">
+                      <button
+                        aria-controls="nav-description"
+                        aria-selected="true"
+                        class="nav-link active"
+                        data-bs-target="#nav-description"
+                        data-bs-toggle="tab"
+                        id="nav-description-tab"
+                        role="tab"
+                        type="button">
+                        产品详情
+                      </button>
+                      <button
+                        aria-controls="nav-additional"
+                        aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#nav-additional"
+                        data-bs-toggle="tab"
+                        id="nav-additional-tab"
+                        role="tab"
+                        type="button">
+                        产品信息
+                      </button>
+                      <button
+                        aria-controls="nav-usage"
+                        aria-selected="false"
+                        class="nav-link"
+                        data-bs-target="#nav-usage"
+                        data-bs-toggle="tab"
+                        id="nav-usage-tab"
+                        role="tab"
+                        type="button">
+                        使用方法
+                      </button>
+                    </div>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="col-xxl-9 col-xl-8 col-lg-8">
+                <div class="product__details-more-tab-content">
+                  <div class="tab-content" id="productmorecontent">
+                    <!-- 产品详情 -->
+                    <div aria-labelledby="nav-description-tab"
+                      class="tab-pane fade show active" id="nav-description"
+                      role="tabpanel">
+                      <div class="product__details-des">
+                        <h4 class="mb-20">草本清爽 · 鼻腔日常护理</h4>
+                        <p
+                          style="margin-bottom:18px; line-height:1.9; color:#444;">
+                          鼻炎灵 Nasalyn 采用多种草本植萃复配，适合用于日常鼻部护理与清爽通畅感管理。
+                          在换季、干燥、粉尘等环境刺激下，作为日常护理用品使用，可帮助提升鼻腔清爽度与舒适度。
+                        </p>
+
+                        <div class="mb-25">
+                          <h5 style="color:#444; margin-bottom:10px;">•
+                            清爽舒适体验</h5>
+                          <p
+                            style="margin-bottom:0;">使用后带来清爽感，帮助改善闷堵感受，提升呼吸顺畅体验。</p>
+                        </div>
+
+                        <div class="mb-25">
+                          <h5 style="color:#444; margin-bottom:10px;">•
+                            草本复配气味清新</h5>
+                          <p
+                            style="margin-bottom:0;">草本气味清爽，日常使用更轻松，随身携带更方便。</p>
+                        </div>
+
+                        <div class="mb-25">
+                          <h5 style="color:#444; margin-bottom:10px;">•
+                            便携随身</h5>
+                          <p style="margin-bottom:0;">10ml
+                            小容量，居家、通勤、旅行都适合放包备用。</p>
+                        </div>
+
+                        <h4 class="mb-20 mt-40">适合人群</h4>
+                        <ul style="list-style:none; padding-left:0;">
+                          <li style="margin-bottom:10px;">✓ 换季鼻部护理</li>
+                          <li style="margin-bottom:10px;">✓ 粉尘环境人群</li>
+                          <li style="margin-bottom:10px;">✓ 冷空气刺激</li>
+                          <li style="margin-bottom:10px;">✓ 空调干燥环境</li>
+                          <li style="margin-bottom:10px;">✓ 鼻部闷堵感</li>
+                          <li style="margin-bottom:10px;">✓ 鼻痒打喷嚏</li>
+                          <li style="margin-bottom:10px;">✓ 流涕不适</li>
+                          <li style="margin-bottom:10px;">✓ 旅行随身备用</li>
+                        </ul>
+
+                        <div class="mt-40"
+                          style="background:#f8f8f8; padding:20px; border-left:4px solid #d1d5db;">
+                          <h5 class="mb-15">产品总结</h5>
+                          <p style="margin-bottom:0;">
+                            作为鼻部日常护理用品，可在早晚使用，帮助维持鼻腔清爽舒适与通畅感体验。是否适合个人情况，请结合自身状态并参考外包装说明。
+                          </p>
+                        </div>
+
+                        <p class="mt-25" style="font-size:12px; color:#999;">
+                          免责声明：本产品为日常护理用品，不用于诊断、治疗、治愈或预防任何疾病。如对成分敏感或有特殊情况，请先咨询专业人士。
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- 产品信息 -->
+                    <div aria-labelledby="nav-additional-tab"
+                      class="tab-pane fade" id="nav-additional" role="tabpanel">
+                      <div class="product__details-info">
+                        <ul>
+                          <li><h4>产品名称</h4><span>加国甄选鼻炎灵</span></li>
+                          <li><h4>英文名称</h4><span>LANLAY Vita-X
+                              Nasalyn</span></li>
+                          <li><h4>价格</h4><span>人民币 299</span></li>
+                          <li><h4>规格</h4><span>10ml / 瓶</span></li>
+                          <li><h4>类型</h4><span>鼻腔护理液（以实物为准）</span></li>
+                          <li>
+                            <h4>主要成分</h4>
+                            <span>辛夷、丁香、苍耳子、薄荷、川芎、升麻等草本植萃（以实物成分表为准）</span>
+                          </li>
+                          <li><h4>产地</h4><span>以实物标签为准</span></li>
+                          <li><h4>特点</h4><span>草本复配 · 清爽舒适 · 便携随身</span></li>
+                          <li><h4>储存方式</h4><span>阴凉干燥处保存，避免阳光直射</span></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- 使用方法 -->
+                    <div aria-labelledby="nav-usage-tab" class="tab-pane fade"
+                      id="nav-usage" role="tabpanel">
+                      <div class="product__details-des">
+                        <h4 class="mb-20">使用方法（以外包装/瓶身标注为准）</h4>
+
+                        <div
+                          style="background:#f0f8ff; padding:22px; border-radius:10px; margin-bottom:18px;">
+                          <p
+                            style="font-size:15px; margin-bottom:10px;"><strong>建议步骤：</strong></p>
+                          <ol
+                            style="margin:0; padding-left:18px; line-height:1.9;">
+                            <li>取少量本品于棉签上。</li>
+                            <li>轻轻涂抹于一侧鼻孔内壁（避免用力深入）。</li>
+                            <li>另一侧鼻孔重复以上步骤。</li>
+                            <li>一般建议每日 2 次；具体频次以外包装说明为准。</li>
+                          </ol>
+                        </div>
+
+                        <div
+                          style="background:#f6f7f8; padding:16px; border-radius:10px; color:#6b7280; font-size:13px; line-height:1.7; margin-bottom:12px;">
+                          温馨提示：仅限外用；避免接触眼睛与破损皮肤；使用后请拧紧瓶盖并置于儿童不易触及处。
+                        </div>
+                        <div
+                          style="background:#f6f7f8; padding:16px; border-radius:10px; color:#6b7280; font-size:13px; line-height:1.7;">
+                          温馨提示：如出现明显刺激、灼热或不适，建议停止使用并咨询医生/药师。
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /使用方法 -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Product details area end -->
+
+    </main>
+    <!-- Body main wrapper end -->
+    <!-- Footer area start -->
+    <footer class="footer-bg">
+      <div class="footer-area section-space-medium">
+        <div class="footer-style-4">
+          <div class="container">
+            <div class="footer-grid-3">
+              <div class="footer-widget-4">
+                <div class="footer-logo mb-35">
+                  <a href="home.html"><img alt="加国甄选"
+                      src="assets/imgs/logo/加国甄选白.svg" /></a>
+                </div>
+                <p>严选加拿大本土品牌，用看得见的标准，守护看不见的健康</p>
+                <div class="theme-social">
+                  <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                  <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                  <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                  <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+              </div>
+              <div class="footer-widget-4">
+                <div class="footer-widget-title">
+                  <h4>我们服务</h4>
+                </div>
+                <div class="footer-link">
+                  <ul>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="coming-soon.html">代理合作</a></li>
+                    <li><a href="coming-soon.html">运输须知</a></li>
+                    <li><a href="coming-soon.html">免责声明</a></li>
+                    <li><a href="coming-soon.html">隐私条款</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="footer-widget-4">
+                <div class="footer-widget-title">
+                  <h4>公司详情</h4>
+                </div>
+                <div class="footer-link">
+                  <ul>
+                    <li><a href="home.html">甄选首页</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="products.html">纯天然保健品</a></li>
+                    <li><a href="blog.html">养生时讯</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="footer-widget-4">
+                <div class="footer-widget-title">
+                  <h4>我们接受</h4>
+                </div>
+                <div class="footer-payment">
+                  <div class="footer-payment-item">
+                    <div class="footer-payment-thumb">
+                      <a href="https://www.mastercard.ca" rel="noopener"
+                        target="_blank">
+                        <img alt="Mastercard"
+                          src="assets/imgs/icons/maser.png" />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="footer-payment-item">
+                    <div class="footer-payment-thumb">
+                      <a href="https://www.paypal.com/ca/home" rel="noopener"
+                        target="_blank">
+                        <img alt="PayPal" src="assets/imgs/icons/paypal.png" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="footer-copyright-area b-t">
+          <div class="footer-copyright-wrapper">
+            <div class="footer-copyright-text">
+              <p class="mb-0">© All Copyright 2025 by <a href="#"
+                  target="_blank">加国甄选</a></p>
+            </div>
+            <div class="footer-conditions">
+              <ul>
+                <li><a href="coming-soon.html">Terms &amp; Condition</a></li>
+                <li><a href="coming-soon.html">Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Footer area end -->
+    <!-- JS here -->
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/waypoints.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/meanmenu.min.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/slick.min.js"></script>
+    <script src="assets/js/magnific-popup.min.js"></script>
+    <script src="assets/js/counterup.js"></script>
+    <script src="assets/js/wow.js"></script>
+    <script src="assets/js/ajax-form.js"></script>
+    <script src="assets/js/beforeafter.jquery-1.0.0.min.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
 </html>
