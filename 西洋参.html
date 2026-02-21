@@ -1211,8 +1211,8 @@ function updateProductDisplay(variant) {
   priceDisplay.classList.add('price-updating');
   
   setTimeout(() => {
-    document.getElementById('oldPrice').textContent = `$${variant.oldPrice.toFixed(2)}`;
-    document.getElementById('newPrice').textContent = `$${variant.price.toFixed(2)}`;
+    document.getElementById('oldPrice').textContent = `¥${variant.oldPrice.toFixed(2)}`;
+    document.getElementById('newPrice').textContent = `¥${variant.price.toFixed(2)}`;
     priceDisplay.classList.remove('price-updating');
   }, 330);
   
